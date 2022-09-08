@@ -29,6 +29,8 @@ contributors:
 
 A genome is a representation of the set of DNA in an organism, such as the set of chromosomes. When the DNA is extracted from the sample, it is broken up into fragments much smaller than the lengths of DNA in the chromosomes. These fragments are called sequencing reads. To assemble the genome, we need to join the reads back into, ideally, chromosome-sized lengths.
 
+![sample-to-genome](images/sampletogenome.png)
+
 
 
 
