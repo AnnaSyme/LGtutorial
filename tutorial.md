@@ -54,7 +54,6 @@ In this tutorial, we will follow these steps:
 
 ![steps](images/steps.png)
 
-
 * Each of these steps is described in a section in this tutorial. 
 * For each step, we will run a workflow. 
 * We will stay in the same Galaxy history throughout. 
@@ -75,12 +74,9 @@ In this tutorial, we will follow these steps:
 
 Each workflow will be discussed in a separate section.
 
-
-
 # Upload data
 
 Let's start with uploading the data.
-
 
 *What sequence data are we using in the tutorial?*
 
@@ -95,10 +91,6 @@ Let's start with uploading the data.
 * These steps are described in more detail, with a workflow, in the tutorial section How to prepare a test-sized set of data.
 
 We are also using a reference genome  Arabidopsis thaliana for a later comparison step (file TAIR10_chr_all.fas downloaded from https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGenes%2FTAIR10_genome_release%2FTAIR10_chromosome_files )
-
-
-
-
 
 > ### {% icon hands_on %} Hands-on: Import the data
 > 1. Create a new history for this tutorial and give it a proper name
@@ -126,23 +118,21 @@ We are also using a reference genome  Arabidopsis thaliana for a later compariso
 * It is likely that your results will differ slightly (e.g. number of bases in the genome assembly). This is common, because many tools start from different random seeds. 
 * Also, tool versions are being constantly updated.  Newer versions may be available since this tutorial was written and could give slightly different results. 
 
-
-
 # Check read quality
 
 Let's look at how many reads we have and their quality scores using the Data QC workflow. 
 
+| Workflow name   | Data QC |
+| ----------- | ----------- |
+| Workflow link   | https://usegalaxy.org.au/u/anna/w/data-qc       |
+| What it does  | Reports statistics from sequencing reads     |
+| Inputs | * long reads (fastq.gz format) * short reads (R1 and R2) (fastq.gz format) |
 
-| Header      | Title       |
-| Paragraph   | Text        |
 
 
-Workflow information
-Workflow name: Data QC
-Workflow link: https://usegalaxy.org.au/u/anna/w/data-qc 
-What it does: Reports statistics from sequencing reads
-Inputs: long reads (fastq.gz format)
-short reads (R1 and R2) (fastq.gz format)
+: 
+: 
+
 Outputs
 For long reads: a nanoplot report (the HTML report summarizes all the information)
 For short reads: a MultiQC report 
