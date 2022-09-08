@@ -48,7 +48,7 @@ Even though most assemblies are not chromosome-length, the assembly in contigs i
 {: .agenda}
 
 
-## Analysis workflow
+# Analysis workflow
 
 In this tutorial, we will follow these steps: 
 
@@ -77,21 +77,6 @@ Each workflow will be discussed in a separate section.
 
 
 
-
-
-
-
-
-
-
->### Agenda
-> In this tutorial we will deal with:
->
-> 1. TOC
-> {:toc}
->
-{: .agenda}
-
 # Upload data
 
 Let's start with uploading the data.
@@ -102,13 +87,16 @@ Let's start with uploading the data.
 >    {% snippet faqs/galaxy/histories_create_new.md %}
 >    {% snippet faqs/galaxy/histories_rename.md %}
 >
-> 2. Import from [Zenodo](https://zenodo.org/record/3567224) or a data library (ask your instructor):
->   - FASTQ file with illumina reads: `sweet-potato-chloroplast-illumina-reduced.fastq`
->   - FASTQ file with nanopore reads: `sweet-potato-chloroplast-nanopore-reduced.fastq`
->   - Note: make sure to import the files with "reduced" in the names, not the ones with "tiny" in the names.
+> 2. Import from [Zenodo](https://zenodo.org/record/7055935) or a data library (ask your instructor):
+>   - 2 FASTQ files with illumina reads: these files have a R1 or R2 in the name
+>   - 1 FASTQ file with nanopore reads: this file has nano in the name
+>   - 1 FASTQ file for the genome Arabidopsis
+>   
 >    ```
->    https://zenodo.org/record/3567224/files/sweet-potato-chloroplast-illumina-reduced.fastq
->    https://zenodo.org/record/3567224/files/sweet-potato-chloroplast-nanopore-reduced.fastq
+>    https://zenodo.org/record/7055935/files/Eucalyptus_subsample_ten_pc_SRR7153045_R1.fastq.gz
+>    https://zenodo.org/record/7055935/files/Eucalyptus_subsample_ten_pc_SRR7153045_R2.fastq.gz
+>    https://zenodo.org/record/7055935/files/Eucalyptus_subsample_ten_pc_nano_SRR7153076.fastq.gz
+>    https://zenodo.org/record/7055935/files/Ref_genome_Arabidopsis.fasta
 >    ```
 >
 >    {% snippet faqs/galaxy/datasets_import_via_link.md %}
