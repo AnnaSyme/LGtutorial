@@ -325,6 +325,119 @@ From your current Galaxy history, run this workflow with the required input data
 
 *Assembly results*
 
+The assembled contigs are in the "Flye assembly on data X (consensus)" (X is a number that will vary depending on where it sits in your history).  
+Open the Quast tabular report to see the assembly statistics:
+
+![quast](images/quast.png)
+
+There are 153 contigs, largest is ~246,000 bp, and total length almost 10 million bp. This is a fair bit longer than the estimated genome size from kmer counting (which was ~240,000 bp), but the difference is likely mainly due to idiosyncrasies of using a subsampled data set. The read coverage was likely <1, causing many kmers to have frequency of <1 and be classed as errors, rather than contributing to the genome size estimate. 
+
+Open the Quast HTML report, then click on "View in Icarus contig browser".  This is a way to visualize the contigs and their sizes:
+
+![icarus](images/icarus.png)
+
+View the Bandage image of the assembly graph:
+
+![bandage](images/bandagegraphpartial.png)
+
+As this is a subsampled data set, it is not surprising that most of the contigs are unjoined. The joined contigs at the top left are likely to be part of the mitochondrial genome as these reads were probably over-represented in our subsampled data set.
+
+*What about centromeres and telomeres?*
+
+Some genomic areas such as centromeres, telomeres, and ribosomal DNA arrays, are much harder to assemble. These are long stretches of very similar repeats. With improved sequencing accuracy, length, and technologies (particularly long-range scaffolding), these may soon be much easier to assemble. The latest human genome assembly has a good demonstration of the techniques used for this.   See "The complete sequence of a human genome" https://www.biorxiv.org/content/10.1101/2021.05.26.445798v1.full.pdf, and in particular, Figure 2: Bandage graphs of the human genome chromosomes, with the grey shading showing centromeric regions. 
+
+*What about haplotigs?*
+
+Although our sample may be diploid, with pairs of chromosomes, the resulting assembly is often a haploid (or "collapsed") assembly. This is not the sequence of one of the chromosomes, but a mix of the two. 
+
+Some assemblers will produce extra contigs called haplotigs. These are parts of the assembly from heterozygous regions (that is, the sequence is relatively different between the chromosome pair). There are tools to remove haplotigs from the assembly if that is preferred. 
+
+For more on differences between collapsed, primary/alternate and partially-phased assemblies, with a great visual representation: see http://lh3.github.io/2021/04/17/concepts-in-phased-assemblies
+
+For more on the phased assemblies, particularly for diploids or polyploids, see "Garg, S. Computational methods for chromosome-scale haplotype reconstruction" https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02328-9 
+
+
+# Assembly polishing
+
+We will polish the assembly using both the long reads and short reads. This process aligns the reads to the assembly contigs, and makes corrections to the contigs where warranted.  For more, see "Aury, J; Istace, B. Hapo-G, haplotype-aware polishing of genome assemblies with accurate reads" https://academic.oup.com/nargab/article/3/2/lqab034/6262629, particularly for a discussion about polishing diploid genomes.
+
+Assembly polishing:
+
+![polishing](images/polish.png)
+
+Workflow information
+Workflow name and links
+Assembly polishing
+https://usegalaxy.org.au/u/anna/w/assembly-polishing
+
+This includes two subworkflows:
+Racon polish with long reads, x 4
+https://usegalaxy.org.au/u/anna/w/racon-polish-with-long-reads-x4
+
+Racon polish with illumina reads, x2
+https://usegalaxy.org.au/u/anna/w/racon-polish-with-illumina-reads-x2
+
+
+What it does
+Polishes (corrects) an assembly, using long reads (with the tools Racon and Medaka) and short reads (with the tool Racon)
+
+(Note: medaka is only for nanopore reads, not PacBio reads). 
+Inputs
+assembly to be polished:  assembly.fasta
+long reads - the same set used in the assembly (e.g. may be raw or filtered) fastq.gz format 
+short reads, R1 only, in fastq.gz format
+Outputs
+Racon+Medaka+Racon polished_assembly. fasta
+Fasta statistics after each polishing tool
+Tools used
+Minimap2
+Racon
+Fasta statistics
+Medaka
+Input parameters
+None required, but recommended to set the Medaka model correctly (default = r941_min_high_g360). See drop down list for options. 
+Workflow steps
+-1-  Polish with long reads: using Racon
+Long reads and assembly contigs => Racon polishing (subworkflow): 
+minimap2 : long reads are mapped to assembly => overlaps.paf. 
+overaps, long reads, assembly => Racon => polished assembly 1
+using polished assembly 1 as input; repeat minimap2 + racon => polished assembly 2
+using polished assembly 2 as input, repeat minimap2 + racon => polished assembly 3
+using polished assembly 3 as input, repeat minimap2 + racon => polished assembly 4
+Racon long-read polished assembly => Fasta statistics
+Note: The Racon tool panel can be a bit confusing and is under review for improvement. Presently it requires sequences (= long reads), overlaps (= the paf file created by minimap2), and target sequences (= the contigs to be polished) as per "usage" described here https://github.com/isovic/racon/blob/master/README.md
+Note: Racon: the default setting for "output unpolished target sequences?" is No. This has been changed to Yes for all Racon steps in these polishing workflows.  This means that even if no polishes are made in some contigs, they will be part of the output fasta file. 
+Note: the contigs output by Racon have new tags in their headers. For more on this see https://github.com/isovic/racon/issues/85.
+
+-2-  Polish with long reads: using Medaka
+Racon polished assembly + long reads => medaka polishing X1 => medaka polished assembly
+Medaka polished assembly => Fasta statistics
+
+-3-  Polish with short reads: using Racon
+Short reads and Medaka polished assembly =>Racon polish (subworkflow):
+minimap2: short reads (R1 only) are mapped to the assembly => overlaps.paf. Minimap2 setting is for short reads.
+overlaps + short reads + assembly => Racon => polished assembly 1
+using polished assembly 1 as input; repeat minimap2 + racon => polished assembly 2
+Racon short-read polished assembly => Fasta statistics
+Report shows
+Workflow steps
+Fasta statistics for the polished assembly after each tool 
+Options
+Change settings for Racon long read polishing if using PacBio reads:  The default profile setting for Racon long read polishing: minimap2 read mapping is "Oxford Nanopore read to reference mapping", which is specified as an input parameter to the whole Assembly polishing workflow, as text: map-ont. If you are not using nanopore reads and/or need a different setting, change this input. To see the other available settings, open the minimap2 tool, find "Select a profile of preset options", and click on the drop down menu. For each described option, there is a short text in brackets at the end (e.g. map-pb). This is the text to enter into the assembly polishing workflow at runtime instead of the default (map-ont).
+Other options: change the number of polishes (in Racon and/or Medaka). There are ways to assess how much improvement in assembly quality has occurred per polishing round (for example, the number of corrections made; the change in Busco score - see section "Genome quality assessment" for more on Busco).
+Option: change polishing settings for any of these tools. Note: for Racon - these will have to be changed within those subworkflows first. Then, in the main workflow, update the subworkflows, and re-save. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
