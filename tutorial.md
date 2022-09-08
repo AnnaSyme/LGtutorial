@@ -39,6 +39,14 @@ In reality, we rarely get chromosome-length assemblies, due to many challenges. 
 
 Even though most assemblies are not chromosome-length, the assembly in contigs is still valuable for many research questions. Lengths of assembled contigs are increasing as sequencing technology and assembly tools improve. 
 
+>### Agenda
+> In this tutorial we will deal with:
+>
+> 1. TOC
+> {:toc}
+>
+{: .agenda}
+
 
 ## Analysis workflow
 
@@ -47,9 +55,25 @@ In this tutorial, we will follow these steps:
 ![steps](images/steps.png)
 
 
+* Each of these steps is described in a section in this tutorial. 
+* For each step, we will run a workflow. 
+* We will stay in the same Galaxy history throughout. 
 
+*How to run a workflow in Galaxy*
 
+* Go to the top panel of Galaxy and see Shared Data -> Workflows. This shows a list of public workflows.
+* Find the right workflow for the section you are in.
+* Click on the drop-down arrow, and import the workflow. 
+* Now this will be in your own list of Workflows. (Galaxy top panel: Workflow) 
+* For the workflow you want to run, go to the right hand side and see the arrow button (a triangle), click
+* This brings up the workflow in the centre Galaxy panel
+* Click "Expand to full workflow form"
+* For "Send results to a new history", leave it as "No".
+* Each time you run a workflow, you need to specify the input data set (or sets). Galaxy will try to guess which file this is, but change if required using the drop-down arrow. 
+* At the top right, click "Run Workflow". 
+* The result files will appear at the top of your current history
 
+Each workflow will be discussed in a separate section.
 
 
 
