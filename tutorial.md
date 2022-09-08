@@ -122,8 +122,7 @@ We are also using a reference genome  Arabidopsis thaliana for a later compariso
 
 Let's look at how many reads we have and their quality scores using the Data QC workflow. 
 
-Workflow link: https://usegalaxy.org.au/u/anna/w/data-qc 
-
+* Workflow link: https://usegalaxy.org.au/u/anna/w/data-qc 
 * What it does: Reports statistics from sequencing reads
 * Inputs: long reads (fastq.gz format); short reads (R1 and R2) (fastq.gz format)
 * Outputs: For long reads: a nanoplot report (the HTML report summarizes all the information). For short reads: a MultiQC report 
@@ -148,36 +147,52 @@ https://gigabaseorgigabyte.wordpress.com/2017/06/01/example-gallery-of-nanoplot/
 More about FastQC results: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 https://timkahlke.github.io/LongRead_tutorials/QC_F.html
 
+# Determine genome characteristics
+
+To prepare for genome assembly you might want to know things about your genome such as size, ploidy level (how many sets of chromosomes) and heterozygosity (how variable the sequence is between homologous chromosomes). A relatively fast way to estimate these things is to count small fragments of the sequencing reads (called kmers).
+
+A read broken into kmers:
+
+![kmers](images/kmers.png)
+
+*What is kmer counting?*
+
+Kmer counting is usually done with high-accuracy short reads, not long reads which may have high error rates.  After counting how many times each kmer is seen in the reads, we can see what sorts of counts are common. For example, lots of kmers may have been found 24 or 25 times. A graph shows the number of different kmers (y axis) found at different counts, or depths (x axis). 
+
+Many different kmers will be found the same number of times; e.g. X25. If kmer length approaches read length, this means the average depth of your sequencing is also ~X25, and there would be a peak in the graph at this position (smaller kmers = higher kmer depth). There may be smaller peaks of kmer counts at higher depths, e.g. X50 or X100, indicating repeats in the genome. There may be other smaller peaks of kmers found at half the average depth, indicating a diploid genome with a certain amount of difference between the homologous chromosomes - this is known as heterozygosity. Thus, the plot of how many different kmers are found at all the depths will help inform estimates of sequencing depth, ploidy level, heterozygosity, and genome size. 
 
 
-> ### {% icon hands_on %} Hands-on: Check read quality
->
-> 1. {% tool [Nanoplot](toolshed.g2.bx.psu.edu/repos/iuc/nanoplot/nanoplot/1.28.2+galaxy1) %}:
->    - *"Select multifile mode"*: `batch`
->    - *"Type of file to work on"*: `fastq`
->    - *"files"*: select the `nanopore FASTQ file`
-> 2. **View output**:
->    * There are five output files.
->    *  Look at the `HTML report` to learn about the read quality.
-{: .hands_on}
+* Workflow name: Kmer counting - meryl
+* Workflow link: https://usegalaxy.org.au/u/anna/w/kmer-counting-meryl
+* What it does: Estimates genome size and heterozygosity based on counts of kmers
+* Inputs: One set of short reads: e.g. R1.fq.gz
+* Outputs: GenomeScope graphs
+* Tools used: Meryl, GenomeScope
+* Input parameters: None required
+* Workflow steps The tool meryl counts kmers in the input reads (k=21), then converts this into a histogram. GenomeScope: runs a model on the histogram; reports estimates. k-mer size set to 21. 
+* Options: Use a different kmer counting tool. e.g. khmer. If so, for the settings, advanced parameters: k-mer size: 21 (as per this recommendation https://github.com/schatzlab/genomescope/issues/32). n_tables: 4. tablesize: set at 8 billion (as per this recommendation https://khmer.readthedocs.io/en/v1.0/choosing-table-sizes.html). Will also need to run some formatting steps to convert khmer output to a two-column matrix, for the  Genomscope. See this workflow: https://usegalaxy.org.au/u/anna/w/kmer-counting-khmer. Note: khmer: to use both R1 and R2 read sets, khmer needs these paired reads in interleaved format. 
 
-> ### {% icon question %} Question
-> What summary statistics would be useful to look at?
->
-> > ### {% icon solution %} Solution
-> > This will depend on the aim of your analysis, but usually:
-> > * **Sequencing depth** (the number of reads covering each base position; also called "coverage"). Higher depth is usually better, but at very high depths it may be better to subsample the reads, as errors can swamp the assembly graph.
-> > * **Sequencing quality** (the quality score indicates probability of base call being correct). You may trim or filter reads on quality. Phred quality scores are logarithmic: phred quality 10 = 90% chance of base call being correct; phred quality 20 = 99% chance of base call being correct. More detail [here](https://en.wikipedia.org/wiki/Phred_quality_score).
-> > * **Read lengths** (read lengths histogram, and reads lengths vs. quality plots). Your analysis or assembly may need reads of a certain length.
-> {: .solution}
-{: .question}
+*Run workflow*
+From your current Galaxy history, run this workflow with the required input data.
 
-*Optional further steps:*
-* Find out the quality of your reads using other tools such as fastp or FastQC.
-* To visualize base quality using emoji you can also use FASTQE.
-* Run FASTQE for the illumina reads. In the output, look at the mean values (the middle row)
-* Repeat FASTQE for the nanopore reads. In the tool settings, increase the maximum read length to 30000.
-* To learn more, see the [Quality Control tutorial]({{site.baseurl}}/topics/sequence-analysis/tutorials/quality-control/tutorial.html)
+*Kmer counting results*
+
+GenomeScope transformed linear plot:
+
+![genomescope plot](images/genomescope.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Assemble reads
 
