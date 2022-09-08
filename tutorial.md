@@ -136,6 +136,7 @@ Let's look at how many reads we have and their quality scores using the Data QC 
 From your current Galaxy history (which contains the test data for this tutorial): go to the top panel in Galaxy, click Shared Data: Workflows, find this workflow, enter the correct input files, and run.
 
 *Data QC results*
+
 What are the results from the two output files? Are the reads long enough and of high enough quality for our downstream analyses? Will reads need any trimming or filtering? Common things to check are average read length, average quality, and whether quality varies by position in the reads. 
 * Look at the plot fro MultiQC for the Sequence Quality Histograms. This shows how the read quality of Illumina reads (y axis) varies according to base position (x axis).You may see for Illumina reads that there is some drop-off in quality towards the end of the reads, which may benefit from trimming. 
 * Look at the plot from Nanoplot for "Read lengths vs Average read quality". The nanopore reads have a mean read quality of 9.0. Depending on the size of our input read sets and the research question, we may filter out reads below a certain average quality. If we had a lot of reads, we may be able to set a higher threshold for filtering according to read quality. 
@@ -181,10 +182,56 @@ GenomeScope transformed linear plot:
 
 ![genomescope plot](images/genomescope.png)
 
+Here we can see a central peak - showing that most of the different kmers were found at counts of ~ 120. These are kmers from single-copy homozygous alleles. To the left, a smaller peak at around half the coverage, showing kmers from heterozygous alleles (note that this peak gets higher than the main peak when heterozygosity is only ~ 1.2%). To the right, another smaller peak showing kmers at higher coverage, from repeat regions. Information from these three peaks provide a haploid genome length estimate of ~240,000 bp (note this is test data so smaller than whole plant genome size). 
+
+The output Summary file shows more detail: 
+* Genome unique length: from single copy homozygous and heterozygous alleles (under the main and left peak).
+* Genome repeat length: from repeat copies (under the graph to the right of the main peak).
+* Genome haploid length: unique length + repeat length
 
 
+More about kmer counting: See https://bioinformatics.uconn.edu/genome-size-estimation-tutorial/#
+
+Meryl: See "Rhie, A., Walenz, B.P., Koren, S. et al. Merqury: reference-free quality, completeness, and phasing assessment for genome assemblies" https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9
+
+Genomescope: See "Vurture, G et al.GenomeScope: fast reference-free genome profiling from short reads" https://doi.org/10.1093/bioinformatics/btx153 (Note: the supplementary information is very informative). 
 
 
+# Trim and filter reads
+
+Using information from Data QC and kmer counting, we may want to trim and/or filter reads. The settings for trimming and filtering depend on many things, including: 
+* your aim (accuracy; contiguity)
+* your data: type, error rate, read depth, lengths, quality (average, variation by position)
+* the ploidy and heterozygosity of your sample
+* choice of assembly tool (e.g. it may automatically deal with adapters, low qualities, etc.)
+
+
+Because of all these factors, few specific recommendations are made here, but the workflow is provided and can be customised. If you are unsure how to start, use your test data to try different settings and see the effect on the resulting size and quality of the reads, and the downstream assembly contigs. Newer assemblers are often configured to work well with long-read data and in some cases, read trimming/filtering for long reads may be unnecessary. 
+
+Trimming and filtering reads:
+
+![trim and filter reads](images/trimfilterreads.png)
+
+*Run the workflow*
+
+
+* Workflow name: Trim and filter reads  
+* Workflow link
+https://usegalaxy.org.au/u/anna/w/trim-and-filter-reads-fastp 
+* What it does: Trims and filters raw sequence reads according to specified settings. 
+* Inputs: Long reads (format fastq), Short reads R1 and R2 (format fastq) 
+* Outputs: Trimmed and filtered reads: fastp_filtered_long_reads.fastq.gz (But note: no trimming or filtering is on by default), fastp_filtered_R1.fastq.gz, fastp_filtered_R2.fastq.gz
+* Tools used:  fastp (Note. The latest version (0.20.1) of fastp has an issue displaying plot results. Using version 0.19.5 here instead until this is rectified). 
+* Input parameters: None required, but recommend removing the long reads from the workflow if not using any trimming/filtering settings. 
+* Workflow steps: 
+** Long reads: fastp settings: These settings have been changed from the defaults (so that all filtering and trimming settings are now disabled). Adapter trimming options: Disable adapter trimming: yes. Filter options: Quality filtering options: Disable quality filtering: yes. Filter options: Length filtering options: Disable length filtering: yes. Read modification options: PolyG tail trimming: Disable. Output options: output JSON report: yes
+** Short reads: fastp settings:adapter trimming (default setting: adapters are auto-detected), quality filtering (default: phred quality 15), unqualified bases limit (default = 40%), number of Ns allowed in a read (default = 5), length filtering (default length = min 15)
+polyG tail trimming (default = on for NextSeq/NovaSeq data which is auto detected), Output options: output JSON report: yes
+
+* Options: 
+** Change any settings in fastp for any of the input reads. Adapter trimming: input the actual adapter sequences. (Alternative tool for long read adapter trimming: Porechop.) Trimming n bases from ends of reads if quality less than value x  (Alternative tool for trimming long reads: NanoFilt.) Discard post-trimmed reads if length is < x (e.g. for long reads, 1000 bp)
+Example filtering/trimming that you might do on long reads: remove adapters (can also be done with Porechop), trim bases from ends of the reads with low quality (can also be done with NanoFilt), after this can keep only reads of length x (e.g. 1000 bp) 
+If not running any trimming/filtering on nanopore reads, could delete this step from the workflow entirely.
 
 
 
