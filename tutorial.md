@@ -170,8 +170,14 @@ Many different kmers will be found the same number of times; e.g. X25. If kmer l
 * Outputs: GenomeScope graphs
 * Tools used: Meryl, GenomeScope
 * Input parameters: None required
-* Workflow steps The tool meryl counts kmers in the input reads (k=21), then converts this into a histogram. GenomeScope: runs a model on the histogram; reports estimates. k-mer size set to 21. 
-* Options: Use a different kmer counting tool. e.g. khmer. If so, for the settings, advanced parameters: k-mer size: 21 (as per this recommendation https://github.com/schatzlab/genomescope/issues/32). n_tables: 4. tablesize: set at 8 billion (as per this recommendation https://khmer.readthedocs.io/en/v1.0/choosing-table-sizes.html). Will also need to run some formatting steps to convert khmer output to a two-column matrix, for the  Genomscope. See this workflow: https://usegalaxy.org.au/u/anna/w/kmer-counting-khmer. Note: khmer: to use both R1 and R2 read sets, khmer needs these paired reads in interleaved format. 
+* Workflow step:
+  * The tool meryl counts kmers in the input reads (k=21), then converts this into a histogram.
+  * GenomeScope: runs a model on the histogram; reports estimates. k-mer size set to 21. 
+* Options: Use a different kmer counting tool. e.g. khmer. If so, for the settings, advanced parameters: 
+  * k-mer size: 21 (as per this recommendation https://github.com/schatzlab/genomescope/issues/32). 
+  * n_tables: 4. tablesize: set at 8 billion (as per this recommendation https://khmer.readthedocs.io/en/v1.0/choosing-table-sizes.html). 
+  * Will also need to run some formatting steps to convert khmer output to a two-column matrix, for the  Genomscope. See this workflow: https://usegalaxy.org.au/u/anna/w/kmer-counting-khmer. 
+  * Note: khmer: to use both R1 and R2 read sets, khmer needs these paired reads in interleaved format. 
 
 *Run workflow*
 From your current Galaxy history, run this workflow with the required input data.
