@@ -124,35 +124,13 @@ Let's look at how many reads we have and their quality scores using the Data QC 
 
 Workflow link: https://usegalaxy.org.au/u/anna/w/data-qc 
 
-What it does:
-* Reports statistics from sequencing reads
-
-Inputs:
-* long reads (fastq.gz format)
-* short reads (R1 and R2) (fastq.gz format)
-
-Outputs:
-* For long reads: a nanoplot report (the HTML report summarizes all the information)
-* For short reads: a MultiQC report 
-
-Tools used:
-* Nanoplot
-* FastQC
-* MultiQC
-
-Input parameters
-* None required
-
-Workflow steps
-* Long reads are analysed by Nanoplot
-* Short reads (R1 and R2) are analysed by FastQC; the resulting reports are processed by MultiQC
-
-Report shows
-* Workflow steps
-
-Options
-* See the tool settings options at runtime and change as required. 
-* Alternative tool option: fastp
+* What it does: Reports statistics from sequencing reads
+* Inputs: long reads (fastq.gz format); short reads (R1 and R2) (fastq.gz format)
+* Outputs: For long reads: a nanoplot report (the HTML report summarizes all the information). For short reads: a MultiQC report 
+* Tools used: Nanoplot, FastQC, MultiQC
+* Input parameters: None required
+* Workflow steps: Long reads are analysed by Nanoplot. Short reads (R1 and R2) are analysed by FastQC; the resulting reports are processed by MultiQC
+* Options: See the tool settings options at runtime and change as required. Alternative tool option: fastp
 
 *Run workflow*
 
