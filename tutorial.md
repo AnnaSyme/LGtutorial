@@ -189,7 +189,6 @@ The output Summary file shows more detail:
 * Genome repeat length: from repeat copies (under the graph to the right of the main peak).
 * Genome haploid length: unique length + repeat length
 
-
 More about kmer counting: See https://bioinformatics.uconn.edu/genome-size-estimation-tutorial/#
 
 Meryl: See "Rhie, A., Walenz, B.P., Koren, S. et al. Merqury: reference-free quality, completeness, and phasing assessment for genome assemblies" https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9
@@ -214,7 +213,6 @@ Trimming and filtering reads:
 
 *Run the workflow*
 
-
 * Workflow name: Trim and filter reads  
 * Workflow link
 https://usegalaxy.org.au/u/anna/w/trim-and-filter-reads-fastp 
@@ -224,14 +222,27 @@ https://usegalaxy.org.au/u/anna/w/trim-and-filter-reads-fastp
 * Tools used:  fastp (Note. The latest version (0.20.1) of fastp has an issue displaying plot results. Using version 0.19.5 here instead until this is rectified). 
 * Input parameters: None required, but recommend removing the long reads from the workflow if not using any trimming/filtering settings. 
 * Workflow steps: 
-** Long reads: fastp settings: These settings have been changed from the defaults (so that all filtering and trimming settings are now disabled). Adapter trimming options: Disable adapter trimming: yes. Filter options: Quality filtering options: Disable quality filtering: yes. Filter options: Length filtering options: Disable length filtering: yes. Read modification options: PolyG tail trimming: Disable. Output options: output JSON report: yes
-** Short reads: fastp settings:adapter trimming (default setting: adapters are auto-detected), quality filtering (default: phred quality 15), unqualified bases limit (default = 40%), number of Ns allowed in a read (default = 5), length filtering (default length = min 15)
-polyG tail trimming (default = on for NextSeq/NovaSeq data which is auto detected), Output options: output JSON report: yes
+  * Long reads: fastp settings: 
+  * These settings have been changed from the defaults (so that all filtering and trimming settings are now disabled). 
+  * Adapter trimming options: Disable adapter trimming: yes. 
+  * Filter options: Quality filtering options: Disable quality filtering: yes. 
+  * Filter options: Length filtering options: Disable length filtering: yes. 
+  * Read modification options: PolyG tail trimming: Disable. 
+  * Output options: output JSON report: yes
+  * Short reads: fastp settings:
+  * adapter trimming (default setting: adapters are auto-detected)
+  * quality filtering (default: phred quality 15), unqualified bases limit (default = 40%), number of Ns allowed in a read (default = 5)
+  * length filtering (default length = min 15)
+  * polyG tail trimming (default = on for NextSeq/NovaSeq data which is auto detected)
+  * Output options: output JSON report: yes
 
 * Options: 
-** Change any settings in fastp for any of the input reads. Adapter trimming: input the actual adapter sequences. (Alternative tool for long read adapter trimming: Porechop.) Trimming n bases from ends of reads if quality less than value x  (Alternative tool for trimming long reads: NanoFilt.) Discard post-trimmed reads if length is < x (e.g. for long reads, 1000 bp)
-Example filtering/trimming that you might do on long reads: remove adapters (can also be done with Porechop), trim bases from ends of the reads with low quality (can also be done with NanoFilt), after this can keep only reads of length x (e.g. 1000 bp) 
-If not running any trimming/filtering on nanopore reads, could delete this step from the workflow entirely.
+  * Change any settings in fastp for any of the input reads.
+  * Adapter trimming: input the actual adapter sequences. (Alternative tool for long read adapter trimming: Porechop.) 
+  * Trimming n bases from ends of reads if quality less than value x  (Alternative tool for trimming long reads: NanoFilt.) 
+  * Discard post-trimmed reads if length is < x (e.g. for long reads, 1000 bp)
+  * Example filtering/trimming that you might do on long reads: remove adapters (can also be done with Porechop), trim bases from ends of the reads with low quality (can also be done with NanoFilt), after this can keep only reads of length x (e.g. 1000 bp) 
+  * If not running any trimming/filtering on nanopore reads, could delete this step from the workflow entirely.
 
 
 
