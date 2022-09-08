@@ -154,10 +154,21 @@ Options
 * See the tool settings options at runtime and change as required. 
 * Alternative tool option: fastp
 
+*Run workflow*
 
+From your current Galaxy history (which contains the test data for this tutorial): go to the top panel in Galaxy, click Shared Data: Workflows, find this workflow, enter the correct input files, and run.
 
+*Data QC results*
+What are the results from the two output files? Are the reads long enough and of high enough quality for our downstream analyses? Will reads need any trimming or filtering? Common things to check are average read length, average quality, and whether quality varies by position in the reads. 
+* Look at the plot fro MultiQC for the Sequence Quality Histograms. This shows how the read quality of Illumina reads (y axis) varies according to base position (x axis).You may see for Illumina reads that there is some drop-off in quality towards the end of the reads, which may benefit from trimming. 
+* Look at the plot from Nanoplot for "Read lengths vs Average read quality". The nanopore reads have a mean read quality of 9.0. Depending on the size of our input read sets and the research question, we may filter out reads below a certain average quality. If we had a lot of reads, we may be able to set a higher threshold for filtering according to read quality. 
 
+More about interpreting nanoplot plots: 
+https://github.com/wdecoster/NanoPlot
+https://gigabaseorgigabyte.wordpress.com/2017/06/01/example-gallery-of-nanoplot/
 
+More about FastQC results: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+https://timkahlke.github.io/LongRead_tutorials/QC_F.html
 
 
 
