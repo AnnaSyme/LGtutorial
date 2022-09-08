@@ -81,6 +81,25 @@ Each workflow will be discussed in a separate section.
 
 Let's start with uploading the data.
 
+
+*What sequence data are we using in the tutorial?*
+
+* The data sets for genome projects can be very large and tools can take some time to run. It is a good idea to test that your planned tools and workflows will work on smaller-sized test data sets, as it is much quicker to find out about any problems. 
+* In this tutorial we will use a subset of real sequencing data from a plant genome, the snow gum, Eucalyptus pauciflora, from a genome project described in this paper: Wang W, Das A, Kainer D, Schalamun M, Morales-Suarez A, Schwessinger B, Lanfear R; 2020, doi: 10.1093/gigascience/giz160.  Data is hosted at NCBI BioProject number: PRJNA450887.
+
+*How has this data subset been prepared?*
+
+* From NCBI, three read files were imported into Galaxy for this tutorial: nanopore reads (SRR7153076), and paired Illumina reads (SRR7153045). 
+* These were randomly subsampled to 10% of the original file size. 
+* Plant genomes may contain an excess of reads from the chloroplast genome (of which there are many copies per cell). To ensure our test data sets are not swamped from excessive chloroplast-genome reads, reads that mapped to a set of known chloroplast gene sequences were discarded.
+* These steps are described in more detail, with a workflow, in the tutorial section How to prepare a test-sized set of data.
+
+We are also using a reference genome  Arabidopsis thaliana for a later comparison step (file TAIR10_chr_all.fas downloaded from https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGenes%2FTAIR10_genome_release%2FTAIR10_chromosome_files )
+
+
+
+
+
 > ### {% icon hands_on %} Hands-on: Import the data
 > 1. Create a new history for this tutorial and give it a proper name
 >
@@ -102,6 +121,12 @@ Let's start with uploading the data.
 >    {% snippet faqs/galaxy/datasets_import_via_link.md %}
 >    {% snippet faqs/galaxy/datasets_import_from_data_library.md %}
 {: .hands_on}
+
+* This tutorial uses these input files and gives some examples from the results.
+* It is likely that your results will differ slightly (e.g. number of bases in the genome assembly). This is common, because many tools start from different random seeds. 
+* Also, tool versions are being constantly updated.  Newer versions may be available since this tutorial was written and could give slightly different results. 
+
+
 
 # Check read quality
 
