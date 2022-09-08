@@ -180,6 +180,7 @@ Many different kmers will be found the same number of times; e.g. X25. If kmer l
   * Note: khmer: to use both R1 and R2 read sets, khmer needs these paired reads in interleaved format. 
 
 *Run workflow*
+
 From your current Galaxy history, run this workflow with the required input data.
 
 *Kmer counting results*
@@ -249,6 +250,96 @@ https://usegalaxy.org.au/u/anna/w/trim-and-filter-reads-fastp
   * Discard post-trimmed reads if length is < x (e.g. for long reads, 1000 bp)
   * Example filtering/trimming that you might do on long reads: remove adapters (can also be done with Porechop), trim bases from ends of the reads with low quality (can also be done with NanoFilt), after this can keep only reads of length x (e.g. 1000 bp) 
   * If not running any trimming/filtering on nanopore reads, could delete this step from the workflow entirely.
+
+
+*Run workflow*
+
+From your current Galaxy history, run this workflow.
+
+*Trim and filter reads: results* 
+
+There are two fastp reports - one for the illumina reads and one for the nanopore reads. We have only processed illumina reads in this example. Look at the fastp illumina report. (Note: the title in the report refers to only one of the input read sets but the report is for both read sets. This is a known issue under investigation.)
+
+Filtering results from fastp on short reads:
+
+![fastp](images/fastp.png)
+
+Here we can see that less than 0.5 % of the reads were discarded based on quality. If our read set had high enough coverage for downstream analyses, we might choose to apply a stricter quality filter. 
+
+*Summary of read data for genome assembly*
+
+How many reads do we have now for our genome assembly? Is the read coverage high enough? 
+
+* Genome size: From kmer counting, the estimated genome size is ~ 240,000 bp  (this is only subsampled data; full data would likely suggest a size of 0.5 - 1 Gbp for a typical plant genome)
+* Genome coverage (or depth):  total base pairs in the reads / base pairs in genome
+* Short reads: From the fastp report after trimming and filtering short reads, there are 3.2 million reads, comprising 482 million base pairs 
+* Short read coverage:  = X2008
+* Long reads: From the fastp report of the long reads (although no filtering and trimming performed) there are 85 thousand reads, comprising 761 million base pairs.  From the nanoplot tool we ran in the Data QC section , we know that the mean read length is almost 9,000 base pairs, and the longest read is > 140,000 base pairs. 
+* Long read coverage:  = X3170
+
+These coverages are very high but are ok to use with tutorial data. With a typical full data set, coverage would be more in the order of X40 to X200. 
+
+# Genome Assembly
+
+Genome assembly means joining the reads up to make contiguous sections of the genome. A simplified way to imagine this is overlapping all the different sequencing reads to make a single length or contig, ideally one for each original chromosome. The output is a set of contigs and a graph showing how contigs are connected.
+
+Extreme simplification of genome assembly:
+
+![genome-assembly](assembly.png)
+
+Genome assembly algorithms use different approaches to work with the complexities of large sequencing read data sets, large genomes, different sequencing error rates, and computational resources. Many use graph-based algorithms.  For more about genome assembly algorithms see https://langmead-lab.org/teaching-materials/.
+
+*Which assembly tool and approach to use?*
+
+Here, we will use the assembly tool called Flye to assemble the long reads. This is fast and deals well with the high error rate. Then, we will polish (correct) the assembly using information from the long reads (in their unassembled state), as well as the more accurate short Illumina reads.
+
+There are many other approaches and combinations of using short and long reads, and the polishing steps. For example, the long reads can be polished before assembly (with themselves, or with short reads). This may increase accuracy of the assembly, but it may also introduce errors if similar sequences are "corrected" into an artificial consensus. Long reads are usually used in the assembly, but it is possible to assemble short reads and then scaffold these into longer contigs using information from long reads. 
+
+For more about the differences between current assembly and polishing tools see "Chen, Y. et al. Efficient assembly of nanopore reads via highly accurate and intact error correction." https://doi.org/10.1038/s41467-020-20236-7,  and "McCartney, A. et al., An exploration of assembly strategies and quality metrics on the accuracy of the rewarewa (Knightia excelsa) genome" https://doi.org/10.1111/1755-0998.13406.
+
+* Workflow name: Assembly with Flye  
+* Workflow link: https://usegalaxy.org.au/u/anna/w/assembly-with-flye
+* What it does: Assembles long reads with the tool Flye
+* Inputs: long reads (may be raw, or filtered, and/or corrected); fastq.gz format
+* Outputs: 
+  * Flye assembly fasta. 
+  * Fasta stats on assembly.fasta
+  * Assembly graph image from Bandage
+  * Bar chart of contig sizes
+  * Quast reports of genome assembly
+* Tools used: Flye, Fasta statistics, Bandage, Bar chart, Quast
+* Input parameters: None required, but recommend setting assembly mode to match input sequence type
+* Workflow steps: 
+  * Long reads are assembled with Flye, using default tool settings. Note: the default setting for read type ("mode") is nanopore raw. Change this at runtime if required. 
+  * Statistics are computed from the assembly.fasta file output, using Fasta Statistics and Quast (is genome large: Yes; distinguish contigs with more that 50% unaligned bases: no)
+  * The graphical fragment assembly file is visualized with the tool Bandage. 
+  * Assembly information sent to bar chart to visualize contig sizes
+* Options
+  * See other Flye options. 
+  * Use a different assembler (in a different workflow). 
+  * Bandage image options - change size (max size is 32767), labels - add (e.g. node lengths). You can also install Bandage on your own computer and download the "graphical fragment assembly" file to view in greater detail. 
+
+*Run workflow*
+
+From your current Galaxy history, run this workflow with the required input data.
+
+*Assembly results*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
