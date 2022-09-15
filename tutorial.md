@@ -608,6 +608,18 @@ Full-sized data: Banana
 https://usegalaxy.org.au/u/anna/h/banana-full-data
 
 
+## Summary
+
+In this tutorial we have assembled sequencing reads into contigs, using tools and workflows in Galaxy Australia. Although we have used test data, these tools and workflows should work on real-sized eukaryotic data sets. 
+
+A summary of the workflow steps and the main tools used:
+
+![summary](images/summary.png)
+
+We plan to extend this tutorial to include addtional modules covering scaffolding, phasing haplotypes, and genome comparison.  For other Galaxy Training material please see https://training.galaxyproject.org/training-material/
+We hope this has been useful for both learning about genome assembly concepts and as a customisable example for your own assembly data. 
+With thanks to: the Galaxy Australia team for all their work and support in configuring tools and infrastructure; the global Galaxy team and the Galaxy Training Network; Rob Lanfear for supporting use of the E pauciflora data in tutorials, and the Australian BioCommons for support and feedback. 
+
 
 
 
