@@ -490,7 +490,12 @@ Busco: As this is a test dataset, the assembly is small (~ 10 million base pairs
 
 Open the Quast HTML report, and at the top of this, click on "View in Icarus contig browser".  This shows how our assembly contigs have mapped to the reference genome. For this reference genome there are 5 chromosomes and two organelles. As this reference genome species is not closely related, not many contigs have mapped well. But we can see that some of them match the organelles (which is expected, as these reads are likely to be overrepresented in the test data). For the nuclear genome, there are some matches to parts of chromosome 2 and 3. 
 
-![quast](images/quast.png)
+![quast2](images/quast2.png)
+
+Click on the "mitochondria" to see how the assembly contigs align to the reference mitochondrial genome. Click the -5x button to zoom out to the full length.
+
+![mitocontigs](images/mitocontigs.png)
+
 
 
 
