@@ -591,6 +591,21 @@ Here, we will subsample our full data set to make a smaller test data set, to ru
   * Other options: see the tool settings options at runtime and change as required. 
 
 
+## Links to tutorial data
+Snow gum data: Eucalyptus pauciflora
+From NCBI BioProject number: PRJNA450887; Paper: Wang W, Das A, Kainer D, Schalamun M, Morales-Suarez A, Schwessinger B, Lanfear R; 2020, doi: 10.1093/gigascience/giz160. 
+From NCBI, three read files were imported into Galaxy for this tutorial: nanopore reads (SRR7153076), and paired Illumina reads (SRR7153045). For the test data set: these were randomly subsampled to 10% of the original file size, and reads mapping to related chloroplast gene sequences (rbcL sequence: accession KM360776.1; matK sequence: accession KT632904.1) were excluded.  
+Test-sized data: Eucalyptus pauciflora
+https://usegalaxy.org.au/u/anna/h/eucalyptus-test-data
+Full-sized data: Eucalyptus pauciflora
+Note that this is not the full data set for this entire NCBI project - only some has been downloaded. However, this set is called the "full-sized data'' in comparison to the test-sized set. It is useful to use only some of these project files for this tutorial, but note that some results may be affected (e.g. kmer counting: genome size estimate is smaller than expected). 
+https://usegalaxy.org.au/u/anna/h/eucalytpus-full-data
+Banana data: Musa acuminata
+From BioProject PRJEB35002; Paper: https://www.nature.com/articles/s42003-021-02559-3?proof=t%29. Three sets of reads were downloaded from NCBI: Banana_nanopore_ERR5455028.fq.g; Banana_illumina_ERR3606950_R1.fq.gz; Banana_illumina_ERR3606950_R2.fq.gz. For the test-sized dataset, these reads were subsampled to 1%, and sequences matching chloroplast genes (FJ871594.2 Musa acuminata  matK; EU017045.1 Musa acuminata  rbcL) were excluded.  
+Test-sized data: Banana
+https://usegalaxy.org.au/u/anna/h/banana-test-data
+Full-sized data: Banana
+https://usegalaxy.org.au/u/anna/h/banana-full-data
 
 
 
