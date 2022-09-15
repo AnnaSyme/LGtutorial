@@ -432,7 +432,7 @@ More about Busco: See  "Simão, F. et al. BUSCO: assessing genome assembly and a
 
 Genome assessment:
 
-
+![assess](images/assess.png)
 
 
 
