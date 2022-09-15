@@ -471,7 +471,6 @@ Report shows
   * select: Use Augustus; Use another predefined species model; then choose from the drop down list. 
  select from a database of trained species models. list here:  https://github.com/Gaius-Augustus/Augustus/tree/master/config/species
   * Note: if using Augustus: it may fail if the input assembly is too small (e.g. a test-size data assembly). It can't do the training part properly. 
-
   * **Compare genes found to other lineage:**
   * Busco has databases of lineages and their expected genes. Option to change lineage. Not all lineages are available - there is a mix of broader and narrower lineages.
   * list of lineages here: https://busco.ezlab.org/list_of_lineages.html. 
