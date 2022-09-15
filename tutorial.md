@@ -498,7 +498,97 @@ Click on the "mitochondria" to see how the assembly contigs align to the referen
 
 
 
+## Combining workflows
 
+We can combine these galaxy workflows into a single workflow. (See https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/workflow-editor/tutorial.html for more information.) 
+
+
+Workflow information
+
+* Workflow name: Combined workflows for large genome assembly 
+* Workflow link: https://usegalaxy.org.au/u/anna/w/combined-large-genome-workflow
+* What it does:  A workflow for genome assembly, containing subworkflows:
+  * Data QC
+  * Kmer counting
+  * Trim and filter reads
+  * Assembly with Flye
+  * Assembly polishing
+  * Assess genome quality
+* Inputs
+  * long reads and short reads in fastq format
+  * reference genome for Quast
+* Outputs
+  * Data information - QC, kmers
+  * Filtered, trimmed reads
+  * Genome assembly, assembly graph, stats
+  * Polished assembly, stats
+* Quality metrics - Busco, Quast
+* Tools used: Sum of tools in each of the subworkflows
+* Input parameters: None required
+* Workflow steps: For detail see each subworkflow
+* Options: 
+  * Omit some steps - e.g. Data QC and kmer counting
+  * Replace a module with one using a different tool - e.g. change assembly tool
+
+
+*Run workflow*
+
+From your current Galaxy history, run this workflow with the required input data (see table above). 
+
+
+## Next steps
+
+*Re-run with different test data*
+
+Import the data from this history and re-run: 
+https://usegalaxy.org.au/u/anna/h/banana-test-data
+
+*Run with your own data*
+See the next section. 
+
+
+## Using your own data
+
+This tutorial has been tested on real-sized data sets and should work with your own data. There will most likely be some modifications required to tools and settings. 
+
+In the next sections we cover how to set up Galaxy for large analyses.
+
+## How to prepare a test-sized set of data
+
+Data sets are large and some tools can take a long time to run. It is much easier to troubleshoot and test parameters on a smaller sized data set. 
+
+Here, we will subsample our full data set to make a smaller test data set, to run on all the planned workflow steps. If this runs successfully, we can then run the analysis with the full data set. 
+
+*Workflow information*
+
+* Workflow name: Prepare test data - remove chloroplast reads and subsample to 10%
+* Workflow link: https://usegalaxy.org.au/u/anna/w/prepare-test-data-remove-chloro-subsample-10-pc
+* What it does: Reduce input read file sizes for testing purposes
+* Inputs
+  * Sequencing reads: long reads: longreads.fastq.qz; short reads: R1.fastq.gz, R2.fastq.gz
+  * Chloroplast gene sequences, seqs.fasta; e.g. well-conserved genes from the chloroplast are matK and rbcL.
+  * If reads match these sequences, they are probably (but not always) from the chloroplast genome rather than the nuclear genome.
+  * We will exclude these sequences from our read sets so they don't swamp the test data sets. 
+  * We will use sequences from a closely-related species: Eucalyptus gunnii, from NCBI. (rbcL sequence: accession KM360776.1; matK sequence: accession KT632904.1)
+  * Import this file from: https://usegalaxy.org.au/u/anna/h/eucalyptus-chloroplast-gene-sequences
+
+* Outputs: subsampled read sets, with chloroplast reads filtered out
+* Tools used: seqtk_seq, minimap2, samtools fastx
+* Input parameters: None required, but recommend setting the subsampling percentage to required level - default is 10% but you may prefer a smaller subsample for initial testing, particularly if your input files are very large. 
+* Workflow steps
+  * Randomly subsample the reads to 10% using seqtk_seq. (Note: for paired reads, the "random seed" is set to the same number for each read set, to preserve pairing information.)
+  * Map all reads to some closely-related chloroplast gene sequences using minimap2. For long read mapping, the default preset is "PacBio/Oxford Nanopore read to reference mapping". For short read mapping, the default preset is "short reads without splicing". This makes a bam file. 
+  * From this file, use samtools fastx to extract only the unmapped reads (i.e. likely non-chloroplast reads) and convert to a fastq file. For long reads, set the flag "read is unmapped". For short reads, set the flags "read is paired, read is unmapped, mate is unmapped". This takes out reads that may be chloroplast reads so they don't swamp the smaller subsampled data set. (Note: For the full data assembly step later on, it is ok to use all the reads as it is possible that some of these chloroplast sequences are integrated into the nuclear genome.)
+  * The output files are re-named: subsampled_long_reads.fastq.gz, subsampled_R1.fastq.gz, subsampled_R2.fastq.gz
+
+* Options:
+  * Workflow: omit the step mapping to the chloroplast sequences. 
+  * Workflow: filter out other sets of reads (e.g. mitochondrial, potential contaminant, etc.) using a different input sequences.fasta
+  * Prior to subsampling: filter reads by some criteria (e.g. length and/or quality). e.g. see the tools fastp or filtlong.
+  * Subsampling: add additional options such as "drop sequences with length shorter than INT" - add a number for a minimum length required. 
+  * Subsampling: change fraction required. The default setting is 0.1 (= 10%). e.g. may need 20% subsample of long reads for the assembly steps to be tested properly. 
+  * Read mapping: change the "Select a profile of preset options" to best match your input data sets. The default is "PacBio/Oxford Nanopore read to reference mapping" which should be sufficient for most data sets in this workflow, but more specific settings are available.  
+  * Other options: see the tool settings options at runtime and change as required. 
 
 
 
