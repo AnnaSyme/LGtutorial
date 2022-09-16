@@ -61,6 +61,10 @@ In this tutorial, we will follow these steps:
 
 *How to run a workflow in Galaxy*
 
+All of these workflows have been uploaded to workflowhub.eu
+Each of the workflows has an image and information available. 
+
+
 * Go to the top panel of Galaxy and see Shared Data -> Workflows. This shows a list of public workflows.
 * Find the right workflow for the section you are in.
 * Click on the drop-down arrow, and import the workflow. 
