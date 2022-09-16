@@ -30,13 +30,17 @@ contributors:
 A genome is a representation of the set of DNA in an organism, such as the set of chromosomes. When the DNA is extracted from the sample, it is broken up into fragments much smaller than the lengths of DNA in the chromosomes. These fragments are called sequencing reads. To assemble the genome, we need to join the reads back into, ideally, chromosome-sized lengths.
 
 ![sample-to-genome](images/sampletogenome.png)
-<img src="https://www.computerhope.com/cdn/computer-hope.jpg" width="200" height="40" alt="Computer Hope">
 
 *Assembly challenges*
 
 In reality, we rarely get chromosome-length assemblies, due to many challenges. Here are some examples of particular challenges in a diploid genome assembly:
 
+
+
 ![challenges](images/challenges.png)
+
+
+
 
 <img src="images/challenges.png" alt="drawing" width="200"/>
 
