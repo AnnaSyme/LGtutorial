@@ -530,8 +530,8 @@ Report shows
   * Note: if using Augustus: it may fail if the input assembly is too small (e.g. a test-size data assembly). It can't do the training part properly. 
   * **Compare genes found to other lineage:**
   * Busco has databases of lineages and their expected genes. Option to change lineage. Not all lineages are available - there is a mix of broader and narrower lineages.
-  * list of lineages here: https://busco.ezlab.org/list_of_lineages.html. 
-  * To see the groups in taxonomic hierarchies: Eukaryotes:  https://busco.ezlab.org/frames/euka.htm
+  * list of lineages [here](https://busco.ezlab.org/list_of_lineages.html) 
+  * To see the groups in taxonomic hierarchies see [here](https://busco.ezlab.org/frames/euka.htm)
   * For example,  if you have a plant species from Fabales, you could set that as the lineage. 
   * The narrower the taxonomic group, the more total genes are expected. 
 
