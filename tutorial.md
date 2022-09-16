@@ -70,7 +70,7 @@ In this tutorial, we will follow these steps:
 *How to run a workflow in Galaxy*
 * All of these workflows have been uploaded to workflowhub.eu and have been tagged with "Large-genome-assembly". There, each workflow is accompanied by an image of the workflow canvas and the tool connections. 
 * The workflows are also linked to this tutorial - see above and import them into your own Galaxy Account. 
-* A note: as of September 2022, these workflows have been tested on Galaxy Australia but have not yet been tested widely on the Galaxy Europe or Galaxy main servers. Please let us know if you run into any problems if you run the workflows on those servers and we will try to fix the errors. 
+* A note: as of September 2022, these workflows have been tested on Galaxy Australia and we are now in the process of testing them on Galaxy Europe and Galaxy Main. 
 
 After importing the workflows into your account:
 * Look at your of Workflows. (Galaxy top panel: Workflow) 
