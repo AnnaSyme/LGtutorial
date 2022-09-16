@@ -228,9 +228,11 @@ The output Summary file shows more detail:
 
 More about kmer counting: See [this tutorial](https://bioinformatics.uconn.edu/genome-size-estimation-tutorial/#)
 
-For more about Meryl: See this paper ["Rhie, A., Walenz, B.P., Koren, S. et al. Merqury: reference-free quality, completeness, and phasing assessment for genome assemblies"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9)
+For more about Meryl see {% cite Rhie2020 %}.
 
-For more about Genomescope: See ["Vurture, G et al.GenomeScope: fast reference-free genome profiling from short reads"](https://doi.org/10.1093/bioinformatics/btx153) (Note: the supplementary information is very informative).
+For more about Genomescope see {% cite Vurture2017 %}(Note: the supplementary information is very informative).
+
+
 
 
 # Trim and filter reads
@@ -336,7 +338,7 @@ Here, we will use the assembly tool called Flye to assemble the long reads. This
 
 There are many other approaches and combinations of using short and long reads, and the polishing steps. For example, the long reads can be polished before assembly (with themselves, or with short reads). This may increase accuracy of the assembly, but it may also introduce errors if similar sequences are "corrected" into an artificial consensus. Long reads are usually used in the assembly, but it is possible to assemble short reads and then scaffold these into longer contigs using information from long reads. 
 
-For more about the differences between current assembly and polishing tools see ["Chen, Y. et al. Efficient assembly of nanopore reads via highly accurate and intact error correction."](https://doi.org/10.1038/s41467-020-20236-7),  and ["McCartney, A. et al., An exploration of assembly strategies and quality metrics on the accuracy of the rewarewa (Knightia excelsa) genome"](https://doi.org/10.1111/1755-0998.13406).
+For more about the differences between current assembly and polishing tools see {% cite Chen2021%} and {% cite McCartney2021 %}.
 
 Assembly with Flye workflow:
 * What it does: Assembles long reads with the tool Flye
@@ -390,7 +392,7 @@ As this is a subsampled data set, it is not surprising that most of the contigs 
 
 *What about centromeres and telomeres?*
 
-Some genomic areas such as centromeres, telomeres, and ribosomal DNA arrays, are much harder to assemble. These are long stretches of very similar repeats. With improved sequencing accuracy, length, and technologies (particularly long-range scaffolding), these may soon be much easier to assemble. The latest human genome assembly has a good demonstration of the techniques used for this.   See ["The complete sequence of a human genome"](https://www.biorxiv.org/content/10.1101/2021.05.26.445798v1.full.pdf), and in particular, Figure 2: Bandage graphs of the human genome chromosomes, with the grey shading showing centromeric regions. 
+Some genomic areas such as centromeres, telomeres, and ribosomal DNA arrays, are much harder to assemble. These are long stretches of very similar repeats. With improved sequencing accuracy, length, and technologies (particularly long-range scaffolding), these may soon be much easier to assemble. The latest human genome assembly has a good demonstration of the techniques used for this.   See {% cite Nurk2021 %}, and in particular, Figure 2: Bandage graphs of the human genome chromosomes, with the grey shading showing centromeric regions. 
 
 *What about haplotigs?*
 
@@ -400,12 +402,11 @@ Some assemblers will produce extra contigs called haplotigs. These are parts of 
 
 For more on differences between collapsed, primary/alternate and partially-phased assemblies, with a great visual representation: see [Heng Li's Github page](http://lh3.github.io/2021/04/17/concepts-in-phased-assemblies)
 
-For more on the phased assemblies, particularly for diploids or polyploids, see ["Garg, S. Computational methods for chromosome-scale haplotype reconstruction"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02328-9). 
-
+For more on the phased assemblies, particularly for diploids or polyploids, see {% cite Garg2021 %}.
 
 # Assembly polishing
 
-We will polish the assembly using both the long reads and short reads. This process aligns the reads to the assembly contigs, and makes corrections to the contigs where warranted.  For more, see ["Aury, J; Istace, B. Hapo-G, haplotype-aware polishing of genome assemblies with accurate reads"](https://academic.oup.com/nargab/article/3/2/lqab034/6262629), particularly for a discussion about polishing diploid genomes.
+We will polish the assembly using both the long reads and short reads. This process aligns the reads to the assembly contigs, and makes corrections to the contigs where warranted.  For more, see {% cite Aury2021 %}, particularly for a discussion about polishing diploid genomes.
 
 Assembly polishing:
 
@@ -476,7 +477,7 @@ The polished genome is in 145 contigs with a total length of ~ 9.6 million base 
 >
 > > ### {% icon solution %} Solution
 > >
-> > 1.  One measure is the N50, a number that indicates how large the contigs are (although, have the contigs been joined correctly)? Another measure is to see if expected gene sequences are found in the assembly, using a tool called BUSCO. For a discussion on these and other methods, see ["Wang, W. et al. The draft nuclear genome assembly of Eucalyptus pauciflora: a pipeline for comparing de novo assemblies"](https://academic.oup.com/gigascience/article/9/1/giz160/5694103)
+> > 1.  One measure is the N50, a number that indicates how large the contigs are (although, have the contigs been joined correctly)? Another measure is to see if expected gene sequences are found in the assembly, using a tool called BUSCO. For a discussion on these and other methods, see {% cite Wang2020%}.
 > >
 > {: .solution}
 {: .question}
@@ -484,7 +485,7 @@ The polished genome is in 145 contigs with a total length of ~ 9.6 million base 
 
 Here, we will use the BUSCO tool to annotate the genome and then assess whether expected genes are found. Note: this is a brief annotation only, not the full genome annotation that would typically be done following genome assembly. 
 
-More about Busco: See  ["Simão, F. et al. BUSCO: assessing genome assembly and annotation completeness with single-copy orthologs"](https://academic.oup.com/bioinformatics/article/31/19/3210/211866)
+For more about Busco see {% cite Simo2015 %}.
 
 Genome assessment:
 
@@ -492,7 +493,7 @@ Genome assessment:
 
 We will also map the assembled contigs to a known reference genome using the tool Quast, to see how they align. For more about quast see [the manual](http://quast.sourceforge.net/docs/manual.html). 
 
-For more about the Icarus browser ["Mikheenko, A. et al. Icarus: visualizer for de novo assembly evaluation"](https://academic.oup.com/bioinformatics/article/32/21/3321/2415080).
+For more about the Icarus browser see {% cite Mikheenko2016 %}.
 
 
 Genome assessment workflow:
