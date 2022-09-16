@@ -29,7 +29,7 @@ contributors:
 
 A genome is a representation of the set of DNA in an organism, such as the set of chromosomes. When the DNA is extracted from the sample, it is broken up into fragments much smaller than the lengths of DNA in the chromosomes. These fragments are called sequencing reads. To assemble the genome, we need to join the reads back into, ideally, chromosome-sized lengths.
 
-![sample-to-genome](images/sampletogenome.png)
+<img src="images/sampletogenome.png" alt="sample" width="650"/>
 
 *Assembly challenges*
 
@@ -53,7 +53,7 @@ Even though most assemblies are not chromosome-length, the assembly in contigs i
 
 In this tutorial, we will follow these steps: 
 
-![steps](images/steps.png)
+<img src="images/steps.png" alt="steps" width="650"/>
 
 * Each of these steps is described in a section in this tutorial. 
 * For each step, we will run a workflow. 
@@ -155,7 +155,7 @@ To prepare for genome assembly you might want to know things about your genome s
 
 A read broken into kmers:
 
-![kmers](images/kmers.png)
+<img src="images/kmers.png" alt="kmers" width="650"/>
 
 *What is kmer counting?*
 
@@ -188,7 +188,8 @@ From your current Galaxy history, run this workflow with the required input data
 
 GenomeScope transformed linear plot:
 
-![genomescope plot](images/genomescope.png)
+
+<img src="images/genomescope.png" alt="Genomescope" width="650"/>
 
 Here we can see a central peak - showing that most of the different kmers were found at counts of ~ 120. These are kmers from single-copy homozygous alleles. To the left, a smaller peak at around half the coverage, showing kmers from heterozygous alleles (note that this peak gets higher than the main peak when heterozygosity is only ~ 1.2%). To the right, another smaller peak showing kmers at higher coverage, from repeat regions. Information from these three peaks provide a haploid genome length estimate of ~240,000 bp (note this is test data so smaller than whole plant genome size). 
 
@@ -217,7 +218,8 @@ Because of all these factors, few specific recommendations are made here, but th
 
 Trimming and filtering reads:
 
-![trim and filter reads](images/trimfilterreads.png)
+<img src="images/trimfilterreads.png" alt="TrimFilterReads" width="650"/>
+
 
 *Run the workflow*
 
@@ -263,7 +265,7 @@ There are two fastp reports - one for the illumina reads and one for the nanopor
 
 Filtering results from fastp on short reads:
 
-![fastp](images/fastp.png)
+<img src="images/fastp.png" alt="fastp" width="650"/>
 
 Here we can see that less than 0.5 % of the reads were discarded based on quality. If our read set had high enough coverage for downstream analyses, we might choose to apply a stricter quality filter. 
 
@@ -286,7 +288,7 @@ Genome assembly means joining the reads up to make contiguous sections of the ge
 
 Extreme simplification of genome assembly:
 
-![genome-assembly](assembly.png)
+<img src="images/assembly.png" alt="GenomeAssembly" width="650"/>
 
 Genome assembly algorithms use different approaches to work with the complexities of large sequencing read data sets, large genomes, different sequencing error rates, and computational resources. Many use graph-based algorithms.  For more about genome assembly algorithms see https://langmead-lab.org/teaching-materials/.
 
@@ -329,17 +331,19 @@ From your current Galaxy history, run this workflow with the required input data
 The assembled contigs are in the "Flye assembly on data X (consensus)" (X is a number that will vary depending on where it sits in your history).  
 Open the Quast tabular report to see the assembly statistics:
 
-![quast](images/quast.png)
+
+<img src="images/quast.png" alt="Quast" width="650"/>
 
 There are 153 contigs, largest is ~246,000 bp, and total length almost 10 million bp. This is a fair bit longer than the estimated genome size from kmer counting (which was ~240,000 bp), but the difference is likely mainly due to idiosyncrasies of using a subsampled data set. The read coverage was likely <1, causing many kmers to have frequency of <1 and be classed as errors, rather than contributing to the genome size estimate. 
 
 Open the Quast HTML report, then click on "View in Icarus contig browser".  This is a way to visualize the contigs and their sizes:
 
-![icarus](images/icarus.png)
+
+<img src="images/icarus.png" alt="Icarus" width="650"/>
 
 View the Bandage image of the assembly graph:
 
-![bandage](images/bandagegraphpartial.png)
+<img src="images/bandagegraphpartial.png" alt="bandage" width="650"/>
 
 As this is a subsampled data set, it is not surprising that most of the contigs are unjoined. The joined contigs at the top left are likely to be part of the mitochondrial genome as these reads were probably over-represented in our subsampled data set.
 
@@ -364,7 +368,7 @@ We will polish the assembly using both the long reads and short reads. This proc
 
 Assembly polishing:
 
-![polishing](images/polish.png)
+<img src="images/polish.png" alt="Polishing" width="650"/>
 
 
 * Workflow name and links:
@@ -433,7 +437,7 @@ More about Busco: See  "Simão, F. et al. BUSCO: assessing genome assembly and a
 
 Genome assessment:
 
-![assess](images/assess.png)
+<img src="images/assess.png" alt="Assess" width="650"/>
 
 We will also map the assembled contigs to a known reference genome using the tool Quast, to see how they align.  More about quast: http://quast.sourceforge.net/docs/manual.html More about the Icarus browser "Mikheenko, A. et al. Icarus: visualizer for de novo assembly evaluation" https://academic.oup.com/bioinformatics/article/32/21/3321/2415080
 
@@ -491,11 +495,12 @@ Busco: As this is a test dataset, the assembly is small (~ 10 million base pairs
 
 Open the Quast HTML report, and at the top of this, click on "View in Icarus contig browser".  This shows how our assembly contigs have mapped to the reference genome. For this reference genome there are 5 chromosomes and two organelles. As this reference genome species is not closely related, not many contigs have mapped well. But we can see that some of them match the organelles (which is expected, as these reads are likely to be overrepresented in the test data). For the nuclear genome, there are some matches to parts of chromosome 2 and 3. 
 
-![quast2](images/quast2.png)
+
+<img src="images/quast2.png" alt="Quast2" width="650"/>
 
 Click on the "mitochondria" to see how the assembly contigs align to the reference mitochondrial genome. Click the -5x button to zoom out to the full length.
 
-![mitocontigs](images/mitocontigs.png)
+<img src="images/mitocontigs.png" alt="Mitocontigs" width="650"/>
 
 
 
@@ -615,7 +620,7 @@ In this tutorial we have assembled sequencing reads into contigs, using tools an
 
 A summary of the workflow steps and the main tools used:
 
-![summary](images/summary.png)
+<img src="images/summary.png" alt="Summary" width="650"/>
 
 We plan to extend this tutorial to include addtional modules covering scaffolding, phasing haplotypes, and genome comparison.  For other Galaxy Training material please see https://training.galaxyproject.org/training-material/
 We hope this has been useful for both learning about genome assembly concepts and as a customisable example for your own assembly data. 
