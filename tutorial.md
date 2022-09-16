@@ -96,7 +96,6 @@ Let's start with uploading the data.
 * From NCBI, three read files were imported into Galaxy for this tutorial: nanopore reads (SRR7153076), and paired Illumina reads (SRR7153045). 
 * These were randomly subsampled to 10% of the original file size. 
 * Plant genomes may contain an excess of reads from the chloroplast genome (of which there are many copies per cell). To ensure our test data sets are not swamped from excessive chloroplast-genome reads, reads that mapped to a set of known chloroplast gene sequences were discarded.
-* These steps are described in more detail, with a workflow, in the tutorial section How to prepare a test-sized set of data.
 
 We are also using a reference genome *Arabidopsis thaliana* for a later comparison step - file TAIR10_chr_all.fas downloaded from [The Arabidopsis Information Resource](https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGenes%2FTAIR10_genome_release%2FTAIR10_chromosome_files).
 
