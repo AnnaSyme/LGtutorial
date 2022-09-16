@@ -60,12 +60,9 @@ In this tutorial, we will follow these steps:
 * We will stay in the same Galaxy history throughout. 
 
 *How to run a workflow in Galaxy*
-
-All of these workflows have been uploaded to workflowhub.eu and have been tagged with "Large-genome-assembly". There, each workflow is accompanied by an image of the workflow canvas and the tool connections. 
-
-The workflows are also linked to this tutorial - see above and import them into your own Galaxy Account. 
-
-A note: as of September 2022, these workflows have been tested on Galaxy Australia but have not yet been tested widely on the Galaxy Europe or Galaxy main servers. Please let us know if you run into any problems if you run the workflows on those servers and we will try to fix the errors. 
+* All of these workflows have been uploaded to workflowhub.eu and have been tagged with "Large-genome-assembly". There, each workflow is accompanied by an image of the workflow canvas and the tool connections. 
+* The workflows are also linked to this tutorial - see above and import them into your own Galaxy Account. 
+* A note: as of September 2022, these workflows have been tested on Galaxy Australia but have not yet been tested widely on the Galaxy Europe or Galaxy main servers. Please let us know if you run into any problems if you run the workflows on those servers and we will try to fix the errors. 
 
 After importing the workflows into your account:
 * Look at your of Workflows. (Galaxy top panel: Workflow) 
@@ -93,7 +90,7 @@ Let's start with uploading the data.
 * Plant genomes may contain an excess of reads from the chloroplast genome (of which there are many copies per cell). To ensure our test data sets are not swamped from excessive chloroplast-genome reads, reads that mapped to a set of known chloroplast gene sequences were discarded.
 * These steps are described in more detail, with a workflow, in the tutorial section How to prepare a test-sized set of data.
 
-We are also using a reference genome  Arabidopsis thaliana for a later comparison step (file TAIR10_chr_all.fas downloaded from https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGenes%2FTAIR10_genome_release%2FTAIR10_chromosome_files )
+We are also using a reference genome *Arabidopsis thaliana* for a later comparison step - file TAIR10_chr_all.fas downloaded from [The Arabidopsis Information Resource](https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGenes%2FTAIR10_genome_release%2FTAIR10_chromosome_files).
 
 > ### {% icon hands_on %} Hands-on: Import the data
 > 1. Create a new history for this tutorial and give it a proper name
@@ -123,20 +120,32 @@ We are also using a reference genome  Arabidopsis thaliana for a later compariso
 
 # Check read quality
 
-Let's look at how many reads we have and their quality scores using the Data QC workflow. 
-
-* Workflow link: https://usegalaxy.org.au/u/anna/w/data-qc 
+Let's look at how many reads we have and their quality scores using the Data QC workflow.
 * What it does: Reports statistics from sequencing reads
-* Inputs: long reads (fastq.gz format); short reads (R1 and R2) (fastq.gz format)
-* Outputs: For long reads: a nanoplot report (the HTML report summarizes all the information). For short reads: a MultiQC report 
-* Tools used: Nanoplot, FastQC, MultiQC
+* Inputs: 
+  * long reads (fastq.gz format)
+  * short reads (R1 and R2) (fastq.gz format)
+* Outputs: 
+  * For long reads: a nanoplot report (the HTML report summarizes all the information). 
+  * For short reads: a MultiQC report 
+* Tools used: 
+  * Nanoplot
+  * FastQC
+  * MultiQC
 * Input parameters: None required
-* Workflow steps: Long reads are analysed by Nanoplot. Short reads (R1 and R2) are analysed by FastQC; the resulting reports are processed by MultiQC
-* Options: See the tool settings options at runtime and change as required. Alternative tool option: fastp
+* Workflow steps: 
+  * Long reads are analysed by Nanoplot. 
+  * Short reads (R1 and R2) are analysed by FastQC
+  * the resulting reports are processed by MultiQC
+* Options: 
+  * See the tool settings options at runtime and change as required. 
+  * Alternative tool option: fastp
 
-*Run workflow*
+> ### {% icon hands_on %} Hands-on: Run the Data QC workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
-From your current Galaxy history (which contains the test data for this tutorial): go to the top panel in Galaxy, click Shared Data: Workflows, find this workflow, enter the correct input files, and run.
+
 
 *Data QC results*
 
