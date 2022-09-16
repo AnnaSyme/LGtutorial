@@ -61,14 +61,14 @@ In this tutorial, we will follow these steps:
 
 *How to run a workflow in Galaxy*
 
-All of these workflows have been uploaded to workflowhub.eu
-They are all tagged with "Large-genome-assembly".
-Each of the workflows has an image and information available. 
+All of these workflows have been uploaded to workflowhub.eu and have been tagged with "Large-genome-assembly". There, each workflow is accompanied by an image of the workflow canvas and the tool connections. 
 
-* Go to the top panel of Galaxy and see Shared Data -> Workflows. This shows a list of public workflows.
-* Find the right workflow for the section you are in.
-* Click on the drop-down arrow, and import the workflow. 
-* Now this will be in your own list of Workflows. (Galaxy top panel: Workflow) 
+The workflows are also linked to this tutorial - see above and import them into your own Galaxy Account. 
+
+A note: as of September 2022, these workflows have been tested on Galaxy Australia but have not yet been tested widely on the Galaxy Europe or Galaxy main servers. Please let us know if you run into any problems if you run the workflows on those servers and we will try to fix the errors. 
+
+After importing the workflows into your account:
+* Look at your of Workflows. (Galaxy top panel: Workflow) 
 * For the workflow you want to run, go to the right hand side and see the arrow button (a triangle), click
 * This brings up the workflow in the centre Galaxy panel
 * Click "Expand to full workflow form"
@@ -84,12 +84,10 @@ Each workflow will be discussed in a separate section.
 Let's start with uploading the data.
 
 *What sequence data are we using in the tutorial?*
-
 * The data sets for genome projects can be very large and tools can take some time to run. It is a good idea to test that your planned tools and workflows will work on smaller-sized test data sets, as it is much quicker to find out about any problems. 
 * In this tutorial we will use a subset of real sequencing data from a plant genome, the snow gum, Eucalyptus pauciflora, from a genome project described in this paper: Wang W, Das A, Kainer D, Schalamun M, Morales-Suarez A, Schwessinger B, Lanfear R; 2020, doi: 10.1093/gigascience/giz160.  Data is hosted at NCBI BioProject number: PRJNA450887.
 
 *How has this data subset been prepared?*
-
 * From NCBI, three read files were imported into Galaxy for this tutorial: nanopore reads (SRR7153076), and paired Illumina reads (SRR7153045). 
 * These were randomly subsampled to 10% of the original file size. 
 * Plant genomes may contain an excess of reads from the chloroplast genome (of which there are many copies per cell). To ensure our test data sets are not swamped from excessive chloroplast-genome reads, reads that mapped to a set of known chloroplast gene sequences were discarded.
