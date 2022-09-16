@@ -145,20 +145,28 @@ Let's look at how many reads we have and their quality scores using the Data QC 
 >* Find this workflow, enter the correct input files, and run.
 {: .hands_on}
 
-
-
 *Data QC results*
 
-What are the results from the two output files? Are the reads long enough and of high enough quality for our downstream analyses? Will reads need any trimming or filtering? Common things to check are average read length, average quality, and whether quality varies by position in the reads. 
-* Look at the plot fro MultiQC for the Sequence Quality Histograms. This shows how the read quality of Illumina reads (y axis) varies according to base position (x axis).You may see for Illumina reads that there is some drop-off in quality towards the end of the reads, which may benefit from trimming. 
-* Look at the plot from Nanoplot for "Read lengths vs Average read quality". The nanopore reads have a mean read quality of 9.0. Depending on the size of our input read sets and the research question, we may filter out reads below a certain average quality. If we had a lot of reads, we may be able to set a higher threshold for filtering according to read quality. 
+> ### {% icon question %} Questions
+>
+> 1. What are the results from the two output files? Are the reads long enough and of high enough quality for our downstream analyses?  Will reads need any trimming or filtering?
+>
+> > ### {% icon solution %} Solution
+> >
+> > 1. Common things to check are average read length, average quality, and whether quality varies by position in the reads.
+> > * Look at the plot for MultiQC for the Sequence Quality Histograms. This shows how the read quality of Illumina reads (y axis) varies according to base position (x axis).You may see for Illumina reads that there is some drop-off in quality towards the end of the reads, which may benefit from trimming. 
+> > * Look at the plot from Nanoplot for "Read lengths vs Average read quality". The nanopore reads have a mean read quality of 9.0. Depending on the size of our input read sets and the research question, we may filter out reads below a certain average quality. If we had a lot of reads, we may be able to set a higher threshold for filtering according to read quality.  
+> {: .solution}
+{: .question}
 
+ 
 More about interpreting nanoplot plots: 
-https://github.com/wdecoster/NanoPlot
-https://gigabaseorgigabyte.wordpress.com/2017/06/01/example-gallery-of-nanoplot/
+* [Nanoplot on Github](https://github.com/wdecoster/NanoPlot)
+* [Example nanoplots](https://gigabaseorgigabyte.wordpress.com/2017/06/01/example-gallery-of-nanoplot/)
 
-More about FastQC results: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-https://timkahlke.github.io/LongRead_tutorials/QC_F.html
+More about FastQC results: 
+* [FastQC webpage](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+* [FastQC tips](https://timkahlke.github.io/LongRead_tutorials/QC_F.html)
 
 # Determine genome characteristics
 
@@ -174,24 +182,28 @@ Kmer counting is usually done with high-accuracy short reads, not long reads whi
 
 Many different kmers will be found the same number of times; e.g. X25. If kmer length approaches read length, this means the average depth of your sequencing is also ~X25, and there would be a peak in the graph at this position (smaller kmers = higher kmer depth). There may be smaller peaks of kmer counts at higher depths, e.g. X50 or X100, indicating repeats in the genome. There may be other smaller peaks of kmers found at half the average depth, indicating a diploid genome with a certain amount of difference between the homologous chromosomes - this is known as heterozygosity. Thus, the plot of how many different kmers are found at all the depths will help inform estimates of sequencing depth, ploidy level, heterozygosity, and genome size. 
 
-
-* Workflow name: Kmer counting - meryl
-* Workflow link: https://usegalaxy.org.au/u/anna/w/kmer-counting-meryl
+Kmer counting workflow:
 * What it does: Estimates genome size and heterozygosity based on counts of kmers
 * Inputs: One set of short reads: e.g. R1.fq.gz
 * Outputs: GenomeScope graphs
-* Tools used: Meryl, GenomeScope
+* Tools used: 
+  * Meryl
+  * GenomeScope
 * Input parameters: None required
-* Workflow step:
+* Workflow steps:
   * The tool meryl counts kmers in the input reads (k=21), then converts this into a histogram.
   * GenomeScope: runs a model on the histogram; reports estimates. k-mer size set to 21. 
-* Options: Use a different kmer counting tool. e.g. khmer. If so, for the settings, advanced parameters: 
-  * k-mer size: 21 (as per this recommendation https://github.com/schatzlab/genomescope/issues/32). 
-  * n_tables: 4. tablesize: set at 8 billion (as per this recommendation https://khmer.readthedocs.io/en/v1.0/choosing-table-sizes.html). 
-  * Will also need to run some formatting steps to convert khmer output to a two-column matrix, for the  Genomscope. See this workflow: https://usegalaxy.org.au/u/anna/w/kmer-counting-khmer. 
+* Options: 
+  * Use a different kmer counting tool. e.g. khmer. If so, for the settings, advanced parameters: 
+  * k-mer size: 21 (as per [this recommendation](https://github.com/schatzlab/genomescope/issues/32)). 
+  * n_tables: 4. tablesize: set at 8 billion (as per [this recommendation](https://khmer.readthedocs.io/en/v1.0/choosing-table-sizes.html)). 
+  * Will also need to run some formatting steps to convert khmer output to a two-column matrix, for the  Genomscope. See [this workflow](https://usegalaxy.org.au/u/anna/w/kmer-counting-khmer). 
   * Note: khmer: to use both R1 and R2 read sets, khmer needs these paired reads in interleaved format. 
 
-*Run workflow*
+
+> ### {% icon hands_on %} Hands-on: Run the Kmer counting workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
 From your current Galaxy history, run this workflow with the required input data.
 
