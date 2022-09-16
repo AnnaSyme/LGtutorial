@@ -205,12 +205,9 @@ Kmer counting workflow:
 >* Find this workflow, enter the correct input files, and run.
 {: .hands_on}
 
-From your current Galaxy history, run this workflow with the required input data.
-
 *Kmer counting results*
 
 GenomeScope transformed linear plot:
-
 
 <img src="images/genomescope.png" alt="Genomescope" width="650"/>
 
@@ -221,11 +218,11 @@ The output Summary file shows more detail:
 * Genome repeat length: from repeat copies (under the graph to the right of the main peak).
 * Genome haploid length: unique length + repeat length
 
-More about kmer counting: See https://bioinformatics.uconn.edu/genome-size-estimation-tutorial/#
+More about kmer counting: See [this tutorial](https://bioinformatics.uconn.edu/genome-size-estimation-tutorial/#)
 
-Meryl: See "Rhie, A., Walenz, B.P., Koren, S. et al. Merqury: reference-free quality, completeness, and phasing assessment for genome assemblies" https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9
+For more about Meryl: See this paper ["Rhie, A., Walenz, B.P., Koren, S. et al. Merqury: reference-free quality, completeness, and phasing assessment for genome assemblies"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9)
 
-Genomescope: See "Vurture, G et al.GenomeScope: fast reference-free genome profiling from short reads" https://doi.org/10.1093/bioinformatics/btx153 (Note: the supplementary information is very informative). 
+For more about Genomescope: See ["Vurture, G et al.GenomeScope: fast reference-free genome profiling from short reads"](https://doi.org/10.1093/bioinformatics/btx153) (Note: the supplementary information is very informative).
 
 
 # Trim and filter reads
@@ -244,14 +241,15 @@ Trimming and filtering reads:
 <img src="images/trimfilterreads.png" alt="TrimFilterReads" width="650"/>
 
 
-*Run the workflow*
-
-* Workflow name: Trim and filter reads  
-* Workflow link
-https://usegalaxy.org.au/u/anna/w/trim-and-filter-reads-fastp 
+Trimming and filtering workflow:
 * What it does: Trims and filters raw sequence reads according to specified settings. 
-* Inputs: Long reads (format fastq), Short reads R1 and R2 (format fastq) 
-* Outputs: Trimmed and filtered reads: fastp_filtered_long_reads.fastq.gz (But note: no trimming or filtering is on by default), fastp_filtered_R1.fastq.gz, fastp_filtered_R2.fastq.gz
+* Inputs: 
+  * Long reads (format fastq)
+  * Short reads R1 and R2 (format fastq) 
+* Outputs: Trimmed and filtered reads: 
+  * fastp_filtered_long_reads.fastq.gz (But note: no trimming or filtering is on by default)
+  * fastp_filtered_R1.fastq.gz
+  * fastp_filtered_R2.fastq.gz
 * Tools used:  fastp (Note. The latest version (0.20.1) of fastp has an issue displaying plot results. Using version 0.19.5 here instead until this is rectified). 
 * Input parameters: None required, but recommend removing the long reads from the workflow if not using any trimming/filtering settings. 
 * Workflow steps: 
@@ -278,9 +276,10 @@ https://usegalaxy.org.au/u/anna/w/trim-and-filter-reads-fastp
   * If not running any trimming/filtering on nanopore reads, could delete this step from the workflow entirely.
 
 
-*Run workflow*
+> ### {% icon hands_on %} Hands-on: Run the Trim and Filter workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
-From your current Galaxy history, run this workflow.
 
 *Trim and filter reads: results* 
 
@@ -294,9 +293,13 @@ Here we can see that less than 0.5 % of the reads were discarded based on qualit
 
 *Summary of read data for genome assembly*
 
-How many reads do we have now for our genome assembly? Is the read coverage high enough? 
-
-* Genome size: From kmer counting, the estimated genome size is ~ 240,000 bp  (this is only subsampled data; full data would likely suggest a size of 0.5 - 1 Gbp for a typical plant genome)
+> ### {% icon question %} Questions
+>
+> 1. How many reads do we have now for our genome assembly? Is the read coverage high enough? 
+>
+> > ### {% icon solution %} Solution
+> >
+> > 1. * Genome size: From kmer counting, the estimated genome size is ~ 240,000 bp  (this is only subsampled data; full data would likely suggest a size of 0.5 - 1 Gbp for a typical plant genome)
 * Genome coverage (or depth):  total base pairs in the reads / base pairs in genome
 * Short reads: From the fastp report after trimming and filtering short reads, there are 3.2 million reads, comprising 482 million base pairs 
 * Short read coverage:  = X2008
@@ -304,6 +307,10 @@ How many reads do we have now for our genome assembly? Is the read coverage high
 * Long read coverage:  = X3170
 
 These coverages are very high but are ok to use with tutorial data. With a typical full data set, coverage would be more in the order of X40 to X200. 
+> >
+> {: .solution}
+{: .question}
+
 
 # Genome Assembly
 
@@ -313,7 +320,7 @@ Extreme simplification of genome assembly:
 
 <img src="images/assembly.png" alt="GenomeAssembly" width="650"/>
 
-Genome assembly algorithms use different approaches to work with the complexities of large sequencing read data sets, large genomes, different sequencing error rates, and computational resources. Many use graph-based algorithms.  For more about genome assembly algorithms see https://langmead-lab.org/teaching-materials/.
+Genome assembly algorithms use different approaches to work with the complexities of large sequencing read data sets, large genomes, different sequencing error rates, and computational resources. Many use graph-based algorithms.  For more about genome assembly algorithms see [these tutorials by Ben Langmead](https://langmead-lab.org/teaching-materials/).
 
 *Which assembly tool and approach to use?*
 
@@ -321,10 +328,9 @@ Here, we will use the assembly tool called Flye to assemble the long reads. This
 
 There are many other approaches and combinations of using short and long reads, and the polishing steps. For example, the long reads can be polished before assembly (with themselves, or with short reads). This may increase accuracy of the assembly, but it may also introduce errors if similar sequences are "corrected" into an artificial consensus. Long reads are usually used in the assembly, but it is possible to assemble short reads and then scaffold these into longer contigs using information from long reads. 
 
-For more about the differences between current assembly and polishing tools see "Chen, Y. et al. Efficient assembly of nanopore reads via highly accurate and intact error correction." https://doi.org/10.1038/s41467-020-20236-7,  and "McCartney, A. et al., An exploration of assembly strategies and quality metrics on the accuracy of the rewarewa (Knightia excelsa) genome" https://doi.org/10.1111/1755-0998.13406.
+For more about the differences between current assembly and polishing tools see ["Chen, Y. et al. Efficient assembly of nanopore reads via highly accurate and intact error correction."](https://doi.org/10.1038/s41467-020-20236-7),  and ["McCartney, A. et al., An exploration of assembly strategies and quality metrics on the accuracy of the rewarewa (Knightia excelsa) genome"](https://doi.org/10.1111/1755-0998.13406).
 
-* Workflow name: Assembly with Flye  
-* Workflow link: https://usegalaxy.org.au/u/anna/w/assembly-with-flye
+Assembly with Flye workflow:
 * What it does: Assembles long reads with the tool Flye
 * Inputs: long reads (may be raw, or filtered, and/or corrected); fastq.gz format
 * Outputs: 
@@ -333,7 +339,12 @@ For more about the differences between current assembly and polishing tools see 
   * Assembly graph image from Bandage
   * Bar chart of contig sizes
   * Quast reports of genome assembly
-* Tools used: Flye, Fasta statistics, Bandage, Bar chart, Quast
+* Tools used: 
+  * Flye
+  * Fasta statistics
+  * Bandage
+  * Bar chart
+  * Quast
 * Input parameters: None required, but recommend setting assembly mode to match input sequence type
 * Workflow steps: 
   * Long reads are assembled with Flye, using default tool settings. Note: the default setting for read type ("mode") is nanopore raw. Change this at runtime if required. 
@@ -345,9 +356,9 @@ For more about the differences between current assembly and polishing tools see 
   * Use a different assembler (in a different workflow). 
   * Bandage image options - change size (max size is 32767), labels - add (e.g. node lengths). You can also install Bandage on your own computer and download the "graphical fragment assembly" file to view in greater detail. 
 
-*Run workflow*
-
-From your current Galaxy history, run this workflow with the required input data.
+> ### {% icon hands_on %} Hands-on: Run the Flye Assembly workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
 *Assembly results*
 
@@ -361,7 +372,6 @@ There are 153 contigs, largest is ~246,000 bp, and total length almost 10 millio
 
 Open the Quast HTML report, then click on "View in Icarus contig browser".  This is a way to visualize the contigs and their sizes:
 
-
 <img src="images/icarus.png" alt="Icarus" width="650"/>
 
 View the Bandage image of the assembly graph:
@@ -372,7 +382,7 @@ As this is a subsampled data set, it is not surprising that most of the contigs 
 
 *What about centromeres and telomeres?*
 
-Some genomic areas such as centromeres, telomeres, and ribosomal DNA arrays, are much harder to assemble. These are long stretches of very similar repeats. With improved sequencing accuracy, length, and technologies (particularly long-range scaffolding), these may soon be much easier to assemble. The latest human genome assembly has a good demonstration of the techniques used for this.   See "The complete sequence of a human genome" https://www.biorxiv.org/content/10.1101/2021.05.26.445798v1.full.pdf, and in particular, Figure 2: Bandage graphs of the human genome chromosomes, with the grey shading showing centromeric regions. 
+Some genomic areas such as centromeres, telomeres, and ribosomal DNA arrays, are much harder to assemble. These are long stretches of very similar repeats. With improved sequencing accuracy, length, and technologies (particularly long-range scaffolding), these may soon be much easier to assemble. The latest human genome assembly has a good demonstration of the techniques used for this.   See ["The complete sequence of a human genome"](https://www.biorxiv.org/content/10.1101/2021.05.26.445798v1.full.pdf), and in particular, Figure 2: Bandage graphs of the human genome chromosomes, with the grey shading showing centromeric regions. 
 
 *What about haplotigs?*
 
@@ -380,25 +390,21 @@ Although our sample may be diploid, with pairs of chromosomes, the resulting ass
 
 Some assemblers will produce extra contigs called haplotigs. These are parts of the assembly from heterozygous regions (that is, the sequence is relatively different between the chromosome pair). There are tools to remove haplotigs from the assembly if that is preferred. 
 
-For more on differences between collapsed, primary/alternate and partially-phased assemblies, with a great visual representation: see http://lh3.github.io/2021/04/17/concepts-in-phased-assemblies
+For more on differences between collapsed, primary/alternate and partially-phased assemblies, with a great visual representation: see [Heng Li's Github page](http://lh3.github.io/2021/04/17/concepts-in-phased-assemblies)
 
-For more on the phased assemblies, particularly for diploids or polyploids, see "Garg, S. Computational methods for chromosome-scale haplotype reconstruction" https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02328-9 
+For more on the phased assemblies, particularly for diploids or polyploids, see ["Garg, S. Computational methods for chromosome-scale haplotype reconstruction"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02328-9). 
 
 
 # Assembly polishing
 
-We will polish the assembly using both the long reads and short reads. This process aligns the reads to the assembly contigs, and makes corrections to the contigs where warranted.  For more, see "Aury, J; Istace, B. Hapo-G, haplotype-aware polishing of genome assemblies with accurate reads" https://academic.oup.com/nargab/article/3/2/lqab034/6262629, particularly for a discussion about polishing diploid genomes.
+We will polish the assembly using both the long reads and short reads. This process aligns the reads to the assembly contigs, and makes corrections to the contigs where warranted.  For more, see ["Aury, J; Istace, B. Hapo-G, haplotype-aware polishing of genome assemblies with accurate reads"](https://academic.oup.com/nargab/article/3/2/lqab034/6262629), particularly for a discussion about polishing diploid genomes.
 
 Assembly polishing:
 
 <img src="images/polish.png" alt="Polishing" width="650"/>
 
-
-* Workflow name and links:
-  * Assembly polishing: https://usegalaxy.org.au/u/anna/w/assembly-polishing
-  * This includes two subworkflows:
-  * Racon polish with long reads, x 4, https://usegalaxy.org.au/u/anna/w/racon-polish-with-long-reads-x4
-  * Racon polish with illumina reads, x2, https://usegalaxy.org.au/u/anna/w/racon-polish-with-illumina-reads-x2
+Polishing workflow:
+* Workflow structure: The workflow includes two subworkflows: Racon polish with long reads, x 4, and Racon polish with illumina reads, x2
 * What it does: Polishes (corrects) an assembly, using long reads (with the tools Racon and Medaka) and short reads (with the tool Racon). (Note: medaka is only for nanopore reads, not PacBio reads). 
 * Inputs:
   * assembly to be polished:  assembly.fasta
@@ -407,9 +413,13 @@ Assembly polishing:
 * Outputs: 
   * Racon+Medaka+Racon polished_assembly. fasta
   * Fasta statistics after each polishing tool
-* Tools used: Minimap2, Racon, Fasta statistics, Medaka
+* Tools used:
+  * Minimap2
+  * Racon
+  * Fasta statistics
+  * Medaka
 * Input parameters: None required, but recommended to set the Medaka model correctly (default = r941_min_high_g360). See drop down list for options. 
-* Workflow steps: -1-  Polish with long reads: using Racon
+* Workflow steps for Part 1, Polish with long reads: using Racon
   * Long reads and assembly contigs => Racon polishing (subworkflow): 
   * minimap2 : long reads are mapped to assembly => overlaps.paf. 
   * overaps, long reads, assembly => Racon => polished assembly 1
@@ -417,15 +427,15 @@ Assembly polishing:
   * using polished assembly 2 as input, repeat minimap2 + racon => polished assembly 3
   * using polished assembly 3 as input, repeat minimap2 + racon => polished assembly 4
   * Racon long-read polished assembly => Fasta statistics
-  * Note: The Racon tool panel can be a bit confusing and is under review for improvement. Presently it requires sequences (= long reads), overlaps (= the paf file created by minimap2), and target sequences (= the contigs to be polished) as per "usage" described here https://github.com/isovic/racon/blob/master/README.md
+  * Note: The Racon tool panel can be a bit confusing and is under review for improvement. Presently it requires sequences (= long reads), overlaps (= the paf file created by minimap2), and target sequences (= the contigs to be polished) as per "usage" described [here](https://github.com/isovic/racon/blob/master/README.md)
   * Note: Racon: the default setting for "output unpolished target sequences?" is No. This has been changed to Yes for all Racon steps in these polishing workflows.  This means that even if no polishes are made in some contigs, they will be part of the output fasta file. 
-  * Note: the contigs output by Racon have new tags in their headers. For more on this see https://github.com/isovic/racon/issues/85.
+  * Note: the contigs output by Racon have new tags in their headers. For more on this see [this issue](https://github.com/isovic/racon/issues/85).
 
-* Workflow steps: -2-  Polish with long reads: using Medaka
+* Workflow steps for Part 2, Polish with long reads: using Medaka
   * Racon polished assembly + long reads => medaka polishing X1 => medaka polished assembly
   * Medaka polished assembly => Fasta statistics
 
-* Workflow steps: -3-  Polish with short reads: using Racon
+* Workflow steps for Part 3, Polish with short reads: using Racon
   * Short reads and Medaka polished assembly =>Racon polish (subworkflow):
   * minimap2: short reads (R1 only) are mapped to the assembly => overlaps.paf. Minimap2 setting is for short reads.
   * overlaps + short reads + assembly => Racon => polished assembly 1
