@@ -36,7 +36,7 @@ A genome is a representation of the set of DNA in an organism, such as the set o
 In reality, we rarely get chromosome-length assemblies, due to many challenges. Here are some examples of particular challenges in a diploid genome assembly:
 
 
-<img src="images/challenges.png" alt="Challenges" width="500"/>
+<img src="images/challenges.png" alt="Challenges" width="650"/>
 
 Even though most assemblies are not chromosome-length, the assembly in contigs is still valuable for many research questions. Lengths of assembled contigs are increasing as sequencing technology and assembly tools improve. 
 
