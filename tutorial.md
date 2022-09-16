@@ -40,6 +40,14 @@ In reality, we rarely get chromosome-length assemblies, due to many challenges. 
 
 Even though most assemblies are not chromosome-length, the assembly in contigs is still valuable for many research questions. Lengths of assembled contigs are increasing as sequencing technology and assembly tools improve. 
 
+*Can I use my own data with these workflows?"
+
+This tutorial has been tested on real-sized data sets and should work with your own data. However, there will most likely be some modifications required to tools and settings. Furthermore, as most species have never had their genome sequenced, it is not possible to guarantee existing workflows are optimal for new data.
+
+It is most likely that any new genome assembly will have its own set of required workflow and analysis customisations to account for things such as ploidy and repeats. Usually, an assembly workflow will need testing and customising, in concert with reading the biological domain literature.
+
+Before using these workflows on real datasets, we recommend completing all the relevant GTN tutorials about Data QC and Asssembly to give extra familiarity with the concepts. Then, we suggest creating subsampled data sets from your full-sized data, for testing. For best results, it is recommended to test each tool separately, and consider the parameters and their relevance and suitability for your own research questions. 
+
 >### Agenda
 > In this tutorial we will deal with:
 >
@@ -448,9 +456,9 @@ Polishing workflow:
 * Other options: change the number of polishes (in Racon and/or Medaka). There are ways to assess how much improvement in assembly quality has occurred per polishing round (for example, the number of corrections made; the change in Busco score - see section "Genome quality assessment" for more on Busco).
 * Option: change polishing settings for any of these tools. Note: for Racon - these will have to be changed within those subworkflows first. Then, in the main workflow, update the subworkflows, and re-save. 
 
-*Run workflow*
-
-From your current Galaxy history, run this workflow with the required input data.
+> ### {% icon hands_on %} Hands-on: Run the Assembly Polishing workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
 *Polishing results*
 
@@ -462,21 +470,32 @@ Look at the Fasta Statistics output files for the status of the assemblies after
 
 The polished genome is in 145 contigs with a total length of ~ 9.6 million base pairs.  We have some idea of how these contigs may be joined (or not) from the Bandage assembly graph. 
 
-How good is the assembly? One measure is the N50, a number that indicates how large the contigs are (although, have the contigs been joined correctly)? Another measure is to see if expected gene sequences are found in the assembly, using a tool called BUSCO. For a discussion on these and other methods, see "Wang, W. et al. The draft nuclear genome assembly of Eucalyptus pauciflora: a pipeline for comparing de novo assemblies" https://academic.oup.com/gigascience/article/9/1/giz160/5694103
+> ### {% icon question %} Questions
+>
+> 1. How good is the assembly?
+>
+> > ### {% icon solution %} Solution
+> >
+> > 1.  One measure is the N50, a number that indicates how large the contigs are (although, have the contigs been joined correctly)? Another measure is to see if expected gene sequences are found in the assembly, using a tool called BUSCO. For a discussion on these and other methods, see ["Wang, W. et al. The draft nuclear genome assembly of Eucalyptus pauciflora: a pipeline for comparing de novo assemblies"](https://academic.oup.com/gigascience/article/9/1/giz160/5694103)
+> >
+> {: .solution}
+{: .question}
+
 
 Here, we will use the BUSCO tool to annotate the genome and then assess whether expected genes are found. Note: this is a brief annotation only, not the full genome annotation that would typically be done following genome assembly. 
 
-More about Busco: See  "Simão, F. et al. BUSCO: assessing genome assembly and annotation completeness with single-copy orthologs" https://academic.oup.com/bioinformatics/article/31/19/3210/211866
+More about Busco: See  ["Simão, F. et al. BUSCO: assessing genome assembly and annotation completeness with single-copy orthologs"](https://academic.oup.com/bioinformatics/article/31/19/3210/211866)
 
 Genome assessment:
 
 <img src="images/assess.png" alt="Assess" width="650"/>
 
-We will also map the assembled contigs to a known reference genome using the tool Quast, to see how they align.  More about quast: http://quast.sourceforge.net/docs/manual.html More about the Icarus browser "Mikheenko, A. et al. Icarus: visualizer for de novo assembly evaluation" https://academic.oup.com/bioinformatics/article/32/21/3321/2415080
+We will also map the assembled contigs to a known reference genome using the tool Quast, to see how they align. For more about quast see [the manual](http://quast.sourceforge.net/docs/manual.html). 
+
+For more about the Icarus browser ["Mikheenko, A. et al. Icarus: visualizer for de novo assembly evaluation"](https://academic.oup.com/bioinformatics/article/32/21/3321/2415080).
 
 
-* Workflow name: Assess genome quality 
-* Workflow link: https://usegalaxy.org.au/u/anna/w/assess-genome
+Genome assessment workflow:
 * What it does: 
   * Assesses the quality of the genome assembly: generate some statistics and determine if expected genes are present
   * Align contigs to a reference genome.
@@ -517,8 +536,9 @@ Report shows
   * The narrower the taxonomic group, the more total genes are expected. 
 
 
-*Run workflow*
-From your current Galaxy history, run this workflow with the required input data.
+> ### {% icon hands_on %} Hands-on: Run the Genome Assessment workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
 *Assessment results*
 
@@ -528,7 +548,6 @@ Busco: As this is a test dataset, the assembly is small (~ 10 million base pairs
 
 Open the Quast HTML report, and at the top of this, click on "View in Icarus contig browser".  This shows how our assembly contigs have mapped to the reference genome. For this reference genome there are 5 chromosomes and two organelles. As this reference genome species is not closely related, not many contigs have mapped well. But we can see that some of them match the organelles (which is expected, as these reads are likely to be overrepresented in the test data). For the nuclear genome, there are some matches to parts of chromosome 2 and 3. 
 
-
 <img src="images/quast2.png" alt="Quast2" width="650"/>
 
 Click on the "mitochondria" to see how the assembly contigs align to the reference mitochondrial genome. Click the -5x button to zoom out to the full length.
@@ -536,16 +555,12 @@ Click on the "mitochondria" to see how the assembly contigs align to the referen
 <img src="images/mitocontigs.png" alt="Mitocontigs" width="650"/>
 
 
-
 ## Combining workflows
 
-We can combine these galaxy workflows into a single workflow. (See https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/workflow-editor/tutorial.html for more information.) 
+We can combine these galaxy workflows into a single workflow. (See [this GTN tutorial](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/workflow-editor/tutorial.html) for more information.) 
 
 
-Workflow information
-
-* Workflow name: Combined workflows for large genome assembly 
-* Workflow link: https://usegalaxy.org.au/u/anna/w/combined-large-genome-workflow
+Combined assembly and polishing workflow:
 * What it does:  A workflow for genome assembly, containing subworkflows:
   * Data QC
   * Kmer counting
@@ -561,7 +576,7 @@ Workflow information
   * Filtered, trimmed reads
   * Genome assembly, assembly graph, stats
   * Polished assembly, stats
-* Quality metrics - Busco, Quast
+  * Quality metrics - Busco, Quast
 * Tools used: Sum of tools in each of the subworkflows
 * Input parameters: None required
 * Workflow steps: For detail see each subworkflow
@@ -570,107 +585,17 @@ Workflow information
   * Replace a module with one using a different tool - e.g. change assembly tool
 
 
-*Run workflow*
-
-From your current Galaxy history, run this workflow with the required input data (see table above). 
-
-
-## Next steps
-
-*Re-run with different test data*
-
-Import the data from this history and re-run: 
-https://usegalaxy.org.au/u/anna/h/banana-test-data
-
-*Run with your own data*
-See the next section. 
-
-
-## Using your own data
-
-This tutorial has been tested on real-sized data sets and should work with your own data. There will most likely be some modifications required to tools and settings. 
-
-In the next sections we cover how to set up Galaxy for large analyses.
-
-## How to prepare a test-sized set of data
-
-Data sets are large and some tools can take a long time to run. It is much easier to troubleshoot and test parameters on a smaller sized data set. 
-
-Here, we will subsample our full data set to make a smaller test data set, to run on all the planned workflow steps. If this runs successfully, we can then run the analysis with the full data set. 
-
-*Workflow information*
-
-* Workflow name: Prepare test data - remove chloroplast reads and subsample to 10%
-* Workflow link: https://usegalaxy.org.au/u/anna/w/prepare-test-data-remove-chloro-subsample-10-pc
-* What it does: Reduce input read file sizes for testing purposes
-* Inputs
-  * Sequencing reads: long reads: longreads.fastq.qz; short reads: R1.fastq.gz, R2.fastq.gz
-  * Chloroplast gene sequences, seqs.fasta; e.g. well-conserved genes from the chloroplast are matK and rbcL.
-  * If reads match these sequences, they are probably (but not always) from the chloroplast genome rather than the nuclear genome.
-  * We will exclude these sequences from our read sets so they don't swamp the test data sets. 
-  * We will use sequences from a closely-related species: Eucalyptus gunnii, from NCBI. (rbcL sequence: accession KM360776.1; matK sequence: accession KT632904.1)
-  * Import this file from: https://usegalaxy.org.au/u/anna/h/eucalyptus-chloroplast-gene-sequences
-
-* Outputs: subsampled read sets, with chloroplast reads filtered out
-* Tools used: seqtk_seq, minimap2, samtools fastx
-* Input parameters: None required, but recommend setting the subsampling percentage to required level - default is 10% but you may prefer a smaller subsample for initial testing, particularly if your input files are very large. 
-* Workflow steps
-  * Randomly subsample the reads to 10% using seqtk_seq. (Note: for paired reads, the "random seed" is set to the same number for each read set, to preserve pairing information.)
-  * Map all reads to some closely-related chloroplast gene sequences using minimap2. For long read mapping, the default preset is "PacBio/Oxford Nanopore read to reference mapping". For short read mapping, the default preset is "short reads without splicing". This makes a bam file. 
-  * From this file, use samtools fastx to extract only the unmapped reads (i.e. likely non-chloroplast reads) and convert to a fastq file. For long reads, set the flag "read is unmapped". For short reads, set the flags "read is paired, read is unmapped, mate is unmapped". This takes out reads that may be chloroplast reads so they don't swamp the smaller subsampled data set. (Note: For the full data assembly step later on, it is ok to use all the reads as it is possible that some of these chloroplast sequences are integrated into the nuclear genome.)
-  * The output files are re-named: subsampled_long_reads.fastq.gz, subsampled_R1.fastq.gz, subsampled_R2.fastq.gz
-
-* Options:
-  * Workflow: omit the step mapping to the chloroplast sequences. 
-  * Workflow: filter out other sets of reads (e.g. mitochondrial, potential contaminant, etc.) using a different input sequences.fasta
-  * Prior to subsampling: filter reads by some criteria (e.g. length and/or quality). e.g. see the tools fastp or filtlong.
-  * Subsampling: add additional options such as "drop sequences with length shorter than INT" - add a number for a minimum length required. 
-  * Subsampling: change fraction required. The default setting is 0.1 (= 10%). e.g. may need 20% subsample of long reads for the assembly steps to be tested properly. 
-  * Read mapping: change the "Select a profile of preset options" to best match your input data sets. The default is "PacBio/Oxford Nanopore read to reference mapping" which should be sufficient for most data sets in this workflow, but more specific settings are available.  
-  * Other options: see the tool settings options at runtime and change as required. 
-
-
-## Links to tutorial data
-Snow gum data: Eucalyptus pauciflora
-From NCBI BioProject number: PRJNA450887; Paper: Wang W, Das A, Kainer D, Schalamun M, Morales-Suarez A, Schwessinger B, Lanfear R; 2020, doi: 10.1093/gigascience/giz160. 
-From NCBI, three read files were imported into Galaxy for this tutorial: nanopore reads (SRR7153076), and paired Illumina reads (SRR7153045). For the test data set: these were randomly subsampled to 10% of the original file size, and reads mapping to related chloroplast gene sequences (rbcL sequence: accession KM360776.1; matK sequence: accession KT632904.1) were excluded.  
-Test-sized data: Eucalyptus pauciflora
-https://usegalaxy.org.au/u/anna/h/eucalyptus-test-data
-Full-sized data: Eucalyptus pauciflora
-Note that this is not the full data set for this entire NCBI project - only some has been downloaded. However, this set is called the "full-sized data'' in comparison to the test-sized set. It is useful to use only some of these project files for this tutorial, but note that some results may be affected (e.g. kmer counting: genome size estimate is smaller than expected). 
-https://usegalaxy.org.au/u/anna/h/eucalytpus-full-data
-Banana data: Musa acuminata
-From BioProject PRJEB35002; Paper: https://www.nature.com/articles/s42003-021-02559-3?proof=t%29. Three sets of reads were downloaded from NCBI: Banana_nanopore_ERR5455028.fq.g; Banana_illumina_ERR3606950_R1.fq.gz; Banana_illumina_ERR3606950_R2.fq.gz. For the test-sized dataset, these reads were subsampled to 1%, and sequences matching chloroplast genes (FJ871594.2 Musa acuminata  matK; EU017045.1 Musa acuminata  rbcL) were excluded.  
-Test-sized data: Banana
-https://usegalaxy.org.au/u/anna/h/banana-test-data
-Full-sized data: Banana
-https://usegalaxy.org.au/u/anna/h/banana-full-data
+> ### {% icon hands_on %} Hands-on: Run the Combined Assembly and Polishing workflow
+>* Find this workflow, enter the correct input files, and run.
+{: .hands_on}
 
 
 ## Summary
 
-In this tutorial we have assembled sequencing reads into contigs, using tools and workflows in Galaxy Australia. Although we have used test data, these tools and workflows should work on real-sized eukaryotic data sets. 
+In this tutorial we have assembled sequencing reads into contigs, using tools and workflows in Galaxy. Although we have used test data, these tools and workflows should work on real-sized eukaryotic data sets although please see our recommendations in the Introduction section. 
 
 A summary of the workflow steps and the main tools used:
 
 <img src="images/summary.png" alt="Summary" width="650"/>
 
-We plan to extend this tutorial to include addtional modules covering scaffolding, phasing haplotypes, and genome comparison.  For other Galaxy Training material please see https://training.galaxyproject.org/training-material/
 We hope this has been useful for both learning about genome assembly concepts and as a customisable example for your own assembly data. 
-With thanks to: the Galaxy Australia team for all their work and support in configuring tools and infrastructure; the global Galaxy team and the Galaxy Training Network; Rob Lanfear for supporting use of the E pauciflora data in tutorials, and the Australian BioCommons for support and feedback. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
