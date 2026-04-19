@@ -862,7 +862,7 @@
         },
         "6": {
             "annotation": "",
-            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus_pipeline/medaka_consensus_pipeline/1.3.2+galaxy0",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus_pipeline/medaka_consensus_pipeline/2.1.1+galaxy0",
             "errors": null,
             "id": 6,
             "input_connections": {
@@ -903,15 +903,15 @@
                     "output_name": "out_consensus"
                 }
             },
-            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus_pipeline/medaka_consensus_pipeline/1.3.2+galaxy0",
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus_pipeline/medaka_consensus_pipeline/2.1.1+galaxy0",
             "tool_shed_repository": {
                 "changeset_revision": "0e9e7fcdd543",
                 "name": "medaka_consensus_pipeline",
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"b\": \"100\", \"d\": {\"__class__\": \"ConnectedValue\"}, \"g\": \"false\", \"i\": {\"__class__\": \"ConnectedValue\"}, \"m\": \"r941_min_high_g360\", \"out\": [\"consensus\"], \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": "1.3.2+galaxy0",
+            "tool_state": "{\"b\": \"100\", \"d\": {\"__class__\": \"ConnectedValue\"}, \"g\": \"false\", \"i\": {\"__class__\": \"ConnectedValue\"}, \"m\": \"r941_min_hac_g507\", \"out\": [\"consensus\"], \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.1.1+galaxy0",
             "type": "tool",
             "uuid": "14c5ce9c-df92-4e20-85da-7a161eaa759d",
             "workflow_outputs": [
